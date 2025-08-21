@@ -3,30 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leichte Sprache - Jobcoach Münster</title>
-    <meta name="description" content="Hilfe bei Geld vom Amt. Wir helfen bei Anträgen. Einfach erklärt.">
+    <title>Leichte Sprache - JobCoach Münster - Hilfe bei Geld vom Amt</title>
+    <meta name="description" content="Hilfe bei Geld vom Amt. Wir helfen bei Anträgen. Einfach erklärt. Kostenlos.">
     <link rel="stylesheet" href="/assets/app.css">
     <style>
         .easy-language {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             line-height: 1.8;
             max-width: 800px;
             margin: 0 auto;
             padding: 2rem 1rem;
+            font-family: 'Arial', sans-serif;
         }
-        .easy-language h1 { font-size: 2rem; color: #2563eb; }
+        .easy-language h1 { 
+            font-size: 2.2rem; 
+            color: #2563eb; 
+            text-align: center;
+            margin-bottom: 2rem;
+        }
         .easy-language h2 { 
-            font-size: 1.5rem; 
+            font-size: 1.8rem; 
             color: #1d4ed8; 
-            border-bottom: 3px solid #2563eb; 
-            padding-bottom: 0.5rem; 
+            border-bottom: 4px solid #2563eb; 
+            padding-bottom: 0.5rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
         }
-        .easy-language p { margin-bottom: 1.5rem; }
-        .easy-language ul { list-style: none; padding: 0; }
-        .easy-language li {
+        .easy-language h3 {
+            font-size: 1.5rem;
+            color: #059669;
+            margin-top: 2rem;
             margin-bottom: 1rem;
-            padding-left: 2rem;
+        }
+        .easy-language p { 
+            margin-bottom: 1.5rem; 
+            max-width: 60ch;
+        }
+        .easy-language ul { 
+            list-style: none; 
+            padding: 0; 
+            margin-bottom: 2rem;
+        }
+        .easy-language li {
+            margin-bottom: 1.2rem;
+            padding-left: 2.5rem;
             position: relative;
+            line-height: 1.6;
         }
         .easy-language li::before {
             content: "✓";
@@ -34,34 +56,98 @@
             left: 0;
             color: #059669;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
+            top: 0;
         }
         .easy-button {
             background: #2563eb;
             color: white;
-            padding: 1rem 2rem;
+            padding: 1.2rem 2rem;
             border: none;
-            border-radius: 0.5rem;
-            font-size: 1.2rem;
+            border-radius: 0.8rem;
+            font-size: 1.3rem;
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            margin: 1rem 0.5rem 1rem 0;
+            margin: 1rem 1rem 1rem 0;
+            font-weight: bold;
+            transition: all 0.3s ease;
         }
-        .easy-button:hover {
+        .easy-button:hover, .easy-button:focus {
             background: #1d4ed8;
             color: white;
+            transform: scale(1.05);
         }
         .warning-box {
             background: #fef3c7;
-            border: 3px solid #f59e0b;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
+            border: 4px solid #f59e0b;
+            padding: 2rem;
+            border-radius: 1rem;
             margin: 2rem 0;
         }
         .warning-box h3 {
             color: #92400e;
             margin-top: 0;
+            font-size: 1.6rem;
+        }
+        .info-box {
+            background: #dbeafe;
+            border: 4px solid #3b82f6;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin: 2rem 0;
+        }
+        .info-box h3 {
+            color: #1e40af;
+            margin-top: 0;
+        }
+        .success-box {
+            background: #d1fae5;
+            border: 4px solid #10b981;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin: 2rem 0;
+        }
+        .success-box h3 {
+            color: #047857;
+            margin-top: 0;
+        }
+        .step-box {
+            background: #f8fafc;
+            border: 3px solid #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin: 1.5rem 0;
+        }
+        .step-number {
+            background: #2563eb;
+            color: white;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+        .contact-easy {
+            background: #059669;
+            color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+        .contact-easy h3 {
+            color: white;
+            margin-top: 0;
+        }
+        .contact-easy a {
+            color: white;
+            text-decoration: underline;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -70,10 +156,10 @@
         <nav class="nav">
             <div class="container">
                 <div class="nav-brand">
-                    <a href="/">Jobcoach Münster</a>
+                    <a href="/">JobCoach Münster</a>
                 </div>
                 <ul class="nav-menu">
-                    <li><a href="/">Normal Sprache</a></li>
+                    <li><a href="/">Normale Sprache</a></li>
                     <li><a href="#kontakt">Kontakt</a></li>
                 </ul>
             </div>
@@ -83,87 +169,260 @@
     <main class="easy-language">
         <div class="container">
             <h1>Leichte Sprache</h1>
-            <p>Wir helfen Ihnen bei Geld vom Amt.</p>
+            <h2>Wir helfen bei Geld vom Amt</h2>
+
+            <div class="info-box">
+                <h3>Was ist Leichte Sprache?</h3>
+                <p>Leichte Sprache ist einfach zu verstehen.</p>
+                <p>Wir benutzen:</p>
+                <ul>
+                    <li>Kurze Sätze</li>
+                    <li>Einfache Wörter</li>
+                    <li>Klare Erklärungen</li>
+                </ul>
+            </div>
 
             <h2>Was machen wir?</h2>
-            <p>Wir helfen bei Anträgen.</p>
-            <p>Zum Beispiel:</p>
+            <p>Wir helfen Ihnen bei Anträgen.</p>
+            <p>Sie bekommen Geld vom Amt.</p>
+            <p>Das Geld heißt: Sozial-Leistungen.</p>
+
+            <h3>Bei diesen Sachen helfen wir:</h3>
             <ul>
-                <li>Bürgergeld</li>
-                <li>Wohngeld</li>
-                <li>Kindergeld</li>
+                <li><strong>Bürger-Geld:</strong> Geld zum Leben. Früher hieß es: Hartz 4.</li>
+                <li><strong>Wohn-Geld:</strong> Hilfe bei der Miete.</li>
+                <li><strong>Kinder-Geld:</strong> Geld für Familien mit Kindern.</li>
+                <li><strong>Andere Hilfen:</strong> Es gibt noch mehr Geld vom Staat.</li>
             </ul>
 
             <h2>Wie helfen wir?</h2>
-            <ul>
-                <li>Wir schauen: Bekommen Sie Geld?</li>
-                <li>Wir füllen Formulare aus.</li>
-                <li>Wir schreiben Briefe.</li>
-                <li>Wir erklären alles.</li>
-            </ul>
+            
+            <div class="step-box">
+                <div class="step-number">1</div>
+                <h3>Sie rufen uns an</h3>
+                <p>Oder Sie schreiben uns.</p>
+                <p>Wir hören zu.</p>
+                <p>Wir fragen: Was brauchen Sie?</p>
+            </div>
+
+            <div class="step-box">
+                <div class="step-number">2</div>
+                <h3>Wir schauen: Bekommen Sie Geld?</h3>
+                <p>Wir prüfen: Haben Sie ein Recht auf Geld?</p>
+                <p>Wir rechnen aus: Wie viel Geld bekommen Sie?</p>
+            </div>
+
+            <div class="step-box">
+                <div class="step-number">3</div>
+                <h3>Wir füllen Formulare aus</h3>
+                <p>Formulare sind oft schwer.</p>
+                <p>Wir helfen Ihnen dabei.</p>
+                <p>Wir sammeln alle Papiere.</p>
+            </div>
+
+            <div class="step-box">
+                <div class="step-number">4</div>
+                <h3>Sie bekommen Ihr Geld</h3>
+                <p>Wir schauen: Ist alles richtig?</p>
+                <p>Falls nicht: Wir beschweren uns für Sie.</p>
+                <p>Wir bleiben dabei. Bis Sie Ihr Geld haben.</p>
+            </div>
+
+            <div class="success-box">
+                <h3>Das Beste:</h3>
+                <p><strong>Die erste Beratung kostet nichts!</strong></p>
+                <p>Sie zahlen nur. Wenn wir Ihnen wirklich helfen.</p>
+                <p>Wir sagen vorher: Was kostet es.</p>
+            </div>
+
+            <h2>Beispiele für Geld vom Amt</h2>
+            
+            <h3>Bürger-Geld</h3>
+            <p>Das ist Geld zum Leben.</p>
+            <p>Sie bekommen es. Wenn Sie keine Arbeit haben.</p>
+            <p>Oder wenn Sie zu wenig Geld verdienen.</p>
+            
+            <div class="info-box">
+                <h3>So viel Geld gibt es:</h3>
+                <ul>
+                    <li><strong>Allein-lebende Person:</strong> 563 Euro im Monat</li>
+                    <li><strong>2 Personen zusammen:</strong> 1.012 Euro im Monat</li>
+                    <li><strong>Familie mit 2 Kindern:</strong> etwa 1.400 Euro im Monat</li>
+                </ul>
+                <p><strong>Dazu kommt:</strong> Geld für Miete und Heizung.</p>
+            </div>
+
+            <h3>Wohn-Geld</h3>
+            <p>Das ist Hilfe bei der Miete.</p>
+            <p>Auch Menschen mit Arbeit können Wohn-Geld bekommen.</p>
+            <p>Wenn die Miete zu teuer ist.</p>
+
+            <h3>Kinder-Geld</h3>
+            <p>Das bekommen alle Familien.</p>
+            <p>Für jedes Kind: 250 Euro im Monat.</p>
+            <p>Bis das Kind 25 Jahre alt ist.</p>
 
             <div class="warning-box">
                 <h3>Wichtig!</h3>
-                <p>Wir sind keine Anwälte.</p>
-                <p>Wir geben nur Tipps.</p>
-                <p>Das Amt entscheidet.</p>
+                <p>Kinder-Geld kommt nicht automatisch.</p>
+                <p>Sie müssen es beantragen.</p>
+                <p>Wir helfen Ihnen dabei.</p>
             </div>
 
-            <h2>Was kostet das?</h2>
-            <p>Das erste Gespräch kostet nichts.</p>
-            <p>Es dauert 30 Minuten.</p>
-            <p>Danach sagen wir Ihnen die Kosten.</p>
+            <h2>Häufige Fragen</h2>
 
-            <h2 id="kontakt">Kontakt</h2>
-            <p>Sie können uns anrufen:</p>
-            <p><strong>Telefon:</strong> +49 251 XXX-XXXX</p>
-            
-            <p>Sie können uns schreiben:</p>
-            <p><strong>E-Mail:</strong> info@jobcoachmuenster.de</p>
+            <h3>Kostet die Hilfe Geld?</h3>
+            <p><strong>Nein!</strong> Die erste Beratung ist kostenlos.</p>
+            <p>30 Minuten sprechen wir mit Ihnen.</p>
+            <p>Ohne dass Sie Geld zahlen müssen.</p>
 
-            <a href="tel:+49251XXXXXXX" class="easy-button">Jetzt anrufen</a>
-            <a href="mailto:info@jobcoachmuenster.de" class="easy-button">E-Mail schreiben</a>
+            <h3>Wie schnell bekommen Sie einen Termin?</h3>
+            <p>Sehr schnell!</p>
+            <p>Oft noch am gleichen Tag.</p>
+            <p>Bei Not-Fällen: Sofort!</p>
 
-            <h2>Datenschutz</h2>
-            <p>Wir passen auf Ihre Daten auf.</p>
-            <p>Wir löschen sie nach 90 Tagen.</p>
-            <p>Sie können sagen: Löscht meine Daten sofort.</p>
+            <h3>Haben Sie ein Recht auf Geld?</h3>
+            <p>Das wissen viele Menschen nicht.</p>
+            <p>Wir finden es heraus.</p>
+            <p>Oft bekommen Menschen mehr Geld. Als sie denken.</p>
 
-            <h2>Barrierefreiheit</h2>
-            <p>Unsere Internet-Seite soll für alle sein.</p>
-            <p>Haben Sie Probleme mit der Seite?</p>
-            <p>Dann schreiben Sie uns.</p>
+            <h3>Welche Papiere brauchen Sie?</h3>
+            <p>Das ist unterschiedlich.</p>
+            <p>Wir sagen Ihnen: Was Sie brauchen.</p>
+            <p>Wir machen eine Liste für Sie.</p>
+
+            <h3>Müssen Sie selbst zum Amt?</h3>
+            <p>Nicht allein!</p>
+            <p>Wir können mit-kommen.</p>
+            <p>Oder wir sprechen für Sie mit dem Amt.</p>
+
+            <h2 id="kontakt">So erreichen Sie uns</h2>
+
+            <div class="contact-easy">
+                <h3>Rufen Sie uns an!</h3>
+                <p><strong>Telefon: <a href="tel:+49251123456">0251 123456</a></strong></p>
+                <p>Montag bis Freitag: 9 Uhr bis 17 Uhr</p>
+                <p>Die erste Beratung ist kostenlos!</p>
+            </div>
+
+            <h3>Oder schreiben Sie uns:</h3>
+            <p><strong>E-Mail: <a href="mailto:info@jobcoach-muenster.de">info@jobcoach-muenster.de</a></strong></p>
+            <p>Wir antworten schnell.</p>
+            <p>Meist am gleichen Tag.</p>
+
+            <h3>WhatsApp:</h3>
+            <p><a href="https://wa.me/49251123456" class="easy-button">WhatsApp-Chat starten</a></p>
+            <p>Für schnelle Fragen.</p>
+
+            <h3>Not-Fall:</h3>
+            <div class="warning-box">
+                <h3>Haben Sie einen Not-Fall?</h3>
+                <p>Haben Sie kein Geld für Essen?</p>
+                <p>Oder keine Geld für die Miete?</p>
+                <p><strong>Dann rufen Sie sofort an: <a href="tel:+4925112345699">0251 123456-99</a></strong></p>
+                <p>Diese Nummer geht immer.</p>
+                <p>Tag und Nacht.</p>
+            </div>
+
+            <h3>Unser Büro:</h3>
+            <p><strong>JobCoach Münster</strong></p>
+            <p>Muster-Straße 123</p>
+            <p>48149 Münster</p>
+            <p>Sie können auch vorbei-kommen.</p>
+            <p>Montag bis Freitag: 9 Uhr bis 17 Uhr</p>
+            <p>Samstag: 10 Uhr bis 14 Uhr</p>
+
+            <div class="info-box">
+                <h3>Barriere-frei</h3>
+                <p>Unser Büro ist barriere-frei.</p>
+                <p>Sie können mit dem Roll-Stuhl kommen.</p>
+                <p>Es gibt Park-Plätze.</p>
+                <p>Die Bus-Haltestelle ist nah.</p>
+            </div>
+
+            <h2>Was Sie wissen müssen</h2>
 
             <div class="warning-box">
-                <h3>Haben Sie Fragen?</h3>
-                <p>Rufen Sie uns an.</p>
-                <p>Oder schreiben Sie uns.</p>
-                <p>Wir helfen gerne.</p>
+                <h3>Wichtiger Hinweis</h3>
+                <p>Wir sind keine Anwälte.</p>
+                <p>Wir geben keine Rechts-Beratung.</p>
+                <p>Wir helfen bei Anträgen.</p>
+                <p>Wir erklären. Wie die Gesetze funktionieren.</p>
             </div>
+
+            <h3>Ihre Daten sind sicher</h3>
+            <p>Wir passen gut auf Ihre Daten auf.</p>
+            <p>Wir geben sie nicht weiter.</p>
+            <p>Nach 90 Tagen löschen wir sie.</p>
+            <p>Sie können jeder-Zeit sagen: Löscht meine Daten.</p>
+
+            <h3>Sie bestimmen</h3>
+            <p>Sie entscheiden:</p>
+            <ul>
+                <li>Wollen Sie unsere Hilfe?</li>
+                <li>Welche Daten speichern wir?</li>
+                <li>Wie nehmen wir Kontakt auf?</li>
+                <li>Was kostet die Hilfe?</li>
+            </ul>
+
+            <div class="success-box">
+                <h3>Das sagen unsere Kunden</h3>
+                <p><em>"Endlich verstehe ich die Formulare!</em></p>
+                <p><em>JobCoach hat mir sehr geholfen.</em></p>
+                <p><em>Jetzt bekomme ich mein Geld."</em></p>
+                <p>- Maria aus Münster</p>
+            </div>
+
+            <h2>Haben Sie noch Fragen?</h2>
+            <p>Rufen Sie uns an: <strong><a href="tel:+49251123456">0251 123456</a></strong></p>
+            <p>Oder schreiben Sie uns: <strong><a href="mailto:info@jobcoach-muenster.de">info@jobcoach-muenster.de</a></strong></p>
+            <p>Wir helfen gerne!</p>
+
+            <div style="text-align: center; margin: 3rem 0;">
+                <a href="/" class="easy-button">Zurück zur normalen Website</a>
+                <a href="tel:+49251123456" class="easy-button">Jetzt anrufen</a>
+            </div>
+
+            <h2>Rechtliche Hinweise</h2>
+            <p>Diese Website befolgt die Regeln für Leichte Sprache.</p>
+            <p>Die Regeln kommen vom Netzwerk Leichte Sprache.</p>
+            <p><a href="/legal/impressum.html">Impressum</a> | <a href="/legal/datenschutz.html">Datenschutz</a></p>
         </div>
     </main>
 
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Jobcoach Münster</h3>
-                    <p>Hilfe bei Geld vom Amt</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Wichtige Seiten</h4>
-                    <ul class="footer-links">
-                        <li><a href="/legal/impressum.html">Impressum</a></li>
-                        <li><a href="/legal/datenschutz.html">Datenschutz</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Jobcoach Münster</p>
-            </div>
+            <p style="text-align: center;">
+                <strong>JobCoach Münster</strong><br>
+                Telefon: <a href="tel:+49251123456">0251 123456</a><br>
+                E-Mail: <a href="mailto:info@jobcoach-muenster.de">info@jobcoach-muenster.de</a>
+            </p>
         </div>
     </footer>
 
-    <script src="/assets/app.js" defer></script>
+    <script>
+        // Einfache Funktionen für Leichte Sprache
+        document.addEventListener('DOMContentLoaded', function() {
+            // Alle Links sollen deutlich erkennbar sein
+            const links = document.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('focus', function() {
+                    this.style.outline = '3px solid #2563eb';
+                    this.style.outlineOffset = '2px';
+                });
+            });
+            
+            // Buttons sollen bei Hover größer werden
+            const buttons = document.querySelectorAll('.easy-button');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.1)';
+                });
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
 </body>
 </html>

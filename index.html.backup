@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professionelle Hilfe bei Sozialleistungen - Bürgergeld, Wohngeld, Kindergeld. Kostenlose Erstberatung und Unterstützung bei Anträgen.">
+    <meta name="keywords" content="Bürgergeld, Wohngeld, Kindergeld, Sozialleistungen, Antrag, Beratung, Münster">
+    <meta name="author" content="Jobcoach Münster">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jobcoachmuenster.de/">
+    <meta property="og:title" content="Jobcoach Münster - Hilfe bei Sozialleistungen">
+    <meta property="og:description" content="Professionelle Hilfe bei Bürgergeld, Wohngeld und anderen Sozialleistungen. Kostenlose Erstberatung.">
+    <meta property="og:image" content="https://jobcoachmuenster.de/assets/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://jobcoachmuenster.de/">
+    <meta property="twitter:title" content="Jobcoach Münster - Hilfe bei Sozialleistungen">
+    <meta property="twitter:description" content="Professionelle Hilfe bei Bürgergeld, Wohngeld und anderen Sozialleistungen.">
+    <meta property="twitter:image" content="https://jobcoachmuenster.de/assets/og-image.jpg">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Jobcoach Münster",
+        "description": "Professionelle Hilfe bei Sozialleistungen und Anträgen",
+        "url": "https://jobcoachmuenster.de",
+        "telephone": "+49-251-XXXXXXX",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Münster",
+            "addressCountry": "DE"
+        },
+        "serviceType": "Sozialberatung",
+        "areaServed": "Deutschland"
+    }
+    </script>
+    
+    <title>Jobcoach Münster - Professionelle Hilfe bei Sozialleistungen | Bürgergeld, Wohngeld, Kindergeld</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/assets/app.css" as="style">
+    <link rel="preload" href="/assets/app.js" as="script">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/assets/app.css">
+    
+    <!-- Skip to main content -->
+    <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+</head>
+<body>
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-banner" class="cookie-banner" role="dialog" aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-description" hidden>
+        <div class="cookie-banner-content">
+            <h2 id="cookie-banner-title">Cookie-Einstellungen</h2>
+            <p id="cookie-banner-description">
+                Wir verwenden Cookies, um Ihnen die bestmögliche Nutzererfahrung zu bieten. 
+                Einige sind technisch notwendig, andere helfen uns, die Website zu verbessern.
+            </p>
+            <div class="cookie-categories">
+                <div class="cookie-category">
+                    <label>
+                        <input type="checkbox" id="essential-cookies" checked disabled>
+                        <span>Essenziell (immer aktiv)</span>
+                    </label>
+                </div>
+                <div class="cookie-category">
+                    <label>
+                        <input type="checkbox" id="analytics-cookies">
+                        <span>Analyse & Statistiken</span>
+                    </label>
+                </div>
+                <div class="cookie-category">
+                    <label>
+                        <input type="checkbox" id="marketing-cookies">
+                        <span>Marketing</span>
+                    </label>
+                </div>
+            </div>
+            <div class="cookie-buttons">
+                <button type="button" id="accept-all-cookies" class="btn btn-primary">Alle akzeptieren</button>
+                <button type="button" id="accept-selected-cookies" class="btn btn-secondary">Auswahl akzeptieren</button>
+                <button type="button" id="reject-optional-cookies" class="btn btn-outline">Nur essenziell</button>
+            </div>
+            <p class="cookie-info">
+                <a href="/legal/datenschutz.html">Datenschutzerklärung</a> | 
+                <button type="button" id="cookie-settings" class="link-button">Einstellungen ändern</button>
+            </p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" role="banner">
+        <nav class="nav" role="navigation" aria-label="Hauptnavigation">
+            <div class="container">
+                <div class="nav-brand">
+                    <a href="/" aria-label="Jobcoach Münster - Startseite">
+                        <img src="/assets/logo.svg" alt="Jobcoach Münster Logo" width="200" height="60">
+                    </a>
+                </div>
+                
+                <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Navigation öffnen/schließen">
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                </button>
+                
+                <ul class="nav-menu" id="nav-menu" role="menubar">
+                    <li role="none">
+                        <a href="#services" role="menuitem">Leistungen</a>
+                    </li>
+                    <li role="none">
+                        <a href="#about" role="menuitem">Über uns</a>
+                    </li>
+                    <li role="none">
+                        <a href="#contact" role="menuitem">Kontakt</a>
+                    </li>
+                    <li role="none">
+                        <a href="/leichte-sprache.html" role="menuitem" lang="de-simple">Leichte Sprache</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" role="main">
+        <!-- Hero Section with 3D Effects -->
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-3d" id="hero-3d-container" aria-hidden="true"></div>
+            <div class="hero-content">
+                <div class="container">
+                    <h1 id="hero-title" class="hero-title">
+                        <span class="hero-title-main">Professionelle Hilfe</span>
+                        <span class="hero-title-sub">bei Sozialleistungen</span>
+                    </h1>
+                    <p class="hero-description">
+                        Wir unterstützen Sie bei Anträgen auf Bürgergeld, Wohngeld, Kindergeld und weitere Sozialleistungen. 
+                        Kostenlose Erstberatung und professionelle Begleitung.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#contact" class="btn btn-primary btn-large">
+                            Kostenlose Beratung
+                        </a>
+                        <a href="#services" class="btn btn-outline btn-large">
+                            Unsere Leistungen
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services" aria-labelledby="services-title">
+            <div class="container">
+                <h2 id="services-title" class="section-title">Unsere Leistungen</h2>
+                <div class="services-grid">
+                    <article class="service-card glass-effect">
+                        <div class="service-icon" aria-hidden="true">💰</div>
+                        <h3>Bürgergeld</h3>
+                        <p>Unterstützung bei Antragstellung, Widersprüchen und Beratung zu Ihren Rechten und Pflichten.</p>
+                        <ul class="service-features">
+                            <li>Antragsberatung</li>
+                            <li>Unterlagenvorbereitung</li>
+                            <li>Widerspruchsverfahren</li>
+                        </ul>
+                    </article>
+                    
+                    <article class="service-card glass-effect">
+                        <div class="service-icon" aria-hidden="true">🏠</div>
+                        <h3>Wohngeld</h3>
+                        <p>Prüfung Ihres Anspruchs und Hilfe bei der Beantragung von Wohngeld zur Senkung Ihrer Wohnkosten.</p>
+                        <ul class="service-features">
+                            <li>Anspruchsprüfung</li>
+                            <li>Berechnung</li>
+                            <li>Antragstellung</li>
+                        </ul>
+                    </article>
+                    
+                    <article class="service-card glass-effect">
+                        <div class="service-icon" aria-hidden="true">👶</div>
+                        <h3>Kindergeld</h3>
+                        <p>Beantragung und Beratung rund um Kindergeld, Kinderzuschlag und weitere Familienleistungen.</p>
+                        <ul class="service-features">
+                            <li>Kindergeld-Antrag</li>
+                            <li>Kinderzuschlag</li>
+                            <li>Elterngeld-Beratung</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Check Section -->
+        <section class="quick-check" aria-labelledby="quick-check-title">
+            <div class="container">
+                <div class="quick-check-content glass-effect">
+                    <h2 id="quick-check-title">Schnellcheck: Haben Sie Anspruch?</h2>
+                    <p>Finden Sie in wenigen Schritten heraus, welche Leistungen für Sie in Frage kommen.</p>
+                    
+                    <form id="quick-check-form" class="quick-check-form" novalidate>
+                        <div class="form-group">
+                            <label for="household-size">
+                                Haushaltsgröße
+                                <span class="required" aria-label="Pflichtfeld">*</span>
+                            </label>
+                            <select id="household-size" name="householdSize" required aria-describedby="household-size-error">
+                                <option value="">Bitte wählen</option>
+                                <option value="1">1 Person</option>
+                                <option value="2">2 Personen</option>
+                                <option value="3">3 Personen</option>
+                                <option value="4">4 Personen</option>
+                                <option value="5+">5 oder mehr Personen</option>
+                            </select>
+                            <div id="household-size-error" class="error-message" role="alert" aria-live="polite"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="monthly-income">
+                                Monatliches Nettoeinkommen (€)
+                                <span class="required" aria-label="Pflichtfeld">*</span>
+                            </label>
+                            <input type="number" id="monthly-income" name="monthlyIncome" min="0" step="10" required aria-describedby="monthly-income-error">
+                            <div id="monthly-income-error" class="error-message" role="alert" aria-live="polite"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="rent-costs">
+                                Monatliche Wohnkosten (€)
+                                <span class="required" aria-label="Pflichtfeld">*</span>
+                            </label>
+                            <input type="number" id="rent-costs" name="rentCosts" min="0" step="10" required aria-describedby="rent-costs-error">
+                            <div id="rent-costs-error" class="error-message" role="alert" aria-live="polite"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="postal-code">
+                                Postleitzahl
+                                <span class="required" aria-label="Pflichtfeld">*</span>
+                            </label>
+                            <input type="text" id="postal-code" name="postalCode" pattern="[0-9]{5}" maxlength="5" required aria-describedby="postal-code-error" placeholder="48149">
+                            <div id="postal-code-error" class="error-message" role="alert" aria-live="polite"></div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Anspruch prüfen</button>
+                    </form>
+                    
+                    <div id="quick-check-result" class="quick-check-result" role="region" aria-live="polite" aria-label="Ergebnis der Anspruchsprüfung" hidden>
+                        <!-- Results will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact" aria-labelledby="contact-title">
+            <div class="container">
+                <h2 id="contact-title" class="section-title">Kontakt aufnehmen</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>Persönliche Beratung</h3>
+                        <p>Vereinbaren Sie einen Termin für eine kostenlose Erstberatung. Wir besprechen Ihre Situation und zeigen Ihnen alle Möglichkeiten auf.</p>
+                        
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <strong>Telefon:</strong>
+                                <a href="tel:+49251XXXXXXX">+49 251 XXX-XXXX</a>
+                            </div>
+                            <div class="contact-method">
+                                <strong>E-Mail:</strong>
+                                <a href="mailto:info@jobcoachmuenster.de">info@jobcoachmuenster.de</a>
+                            </div>
+                            <div class="contact-method">
+                                <strong>WhatsApp:</strong>
+                                <button type="button" id="whatsapp-consent" class="link-button">
+                                    WhatsApp-Kontakt aktivieren
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form-container">
+                        <form id="contact-form" class="contact-form glass-effect" novalidate>
+                            <h3>Nachricht senden</h3>
+                            
+                            <div class="form-group">
+                                <label for="contact-name">
+                                    Vollständiger Name
+                                    <span class="required" aria-label="Pflichtfeld">*</span>
+                                </label>
+                                <input type="text" id="contact-name" name="name" required minlength="2" aria-describedby="contact-name-error">
+                                <div id="contact-name-error" class="error-message" role="alert" aria-live="polite"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-email">
+                                    E-Mail-Adresse
+                                    <span class="required" aria-label="Pflichtfeld">*</span>
+                                </label>
+                                <input type="email" id="contact-email" name="email" required aria-describedby="contact-email-error">
+                                <div id="contact-email-error" class="error-message" role="alert" aria-live="polite"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-phone">Telefonnummer (optional)</label>
+                                <input type="tel" id="contact-phone" name="phone" pattern="[+0-9 ()-]{6,}" aria-describedby="contact-phone-error">
+                                <div id="contact-phone-error" class="error-message" role="alert" aria-live="polite"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="benefit-type">
+                                    Art der Leistung
+                                    <span class="required" aria-label="Pflichtfeld">*</span>
+                                </label>
+                                <select id="benefit-type" name="benefitType" required aria-describedby="benefit-type-error">
+                                    <option value="">Bitte wählen</option>
+                                    <option value="buergergeld">Bürgergeld</option>
+                                    <option value="wohngeld">Wohngeld</option>
+                                    <option value="kindergeld">Kindergeld</option>
+                                    <option value="elterngeld">Elterngeld</option>
+                                    <option value="other">Sonstiges</option>
+                                </select>
+                                <div id="benefit-type-error" class="error-message" role="alert" aria-live="polite"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-message">
+                                    Beschreibung Ihrer Situation
+                                    <span class="required" aria-label="Pflichtfeld">*</span>
+                                </label>
+                                <textarea id="contact-message" name="message" rows="5" required minlength="20" aria-describedby="contact-message-error" placeholder="Beschreiben Sie kurz Ihre Situation und wie wir Ihnen helfen können..."></textarea>
+                                <div id="contact-message-error" class="error-message" role="alert" aria-live="polite"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="priority">Dringlichkeit</label>
+                                <select id="priority" name="priority">
+                                    <option value="normal">Normal</option>
+                                    <option value="urgent">Dringend</option>
+                                    <option value="very-urgent">Sehr dringend</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="document-upload">
+                                    Dokumente hochladen (optional)
+                                    <span class="file-info">PDF, JPEG, PNG - max. 10MB</span>
+                                </label>
+                                <input type="file" id="document-upload" name="documents" multiple accept=".pdf,.jpg,.jpeg,.png" aria-describedby="document-upload-error">
+                                <div id="document-upload-error" class="error-message" role="alert" aria-live="polite"></div>
+                                <button type="button" id="upload-consent" class="btn btn-outline btn-small" style="margin-top: 0.5rem;">
+                                    Upload aktivieren
+                                </button>
+                            </div>
+                            
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="privacy-consent" name="privacyConsent" required aria-describedby="privacy-consent-error">
+                                    <span class="checkmark"></span>
+                                    Ich stimme der <a href="/legal/datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> zu und willige in die Verarbeitung meiner Daten ein.
+                                    <span class="required" aria-label="Pflichtfeld">*</span>
+                                </label>
+                                <div id="privacy-consent-error" class="error-message" role="alert" aria-live="polite"></div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-large">Nachricht senden</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about" aria-labelledby="about-title">
+            <div class="container">
+                <h2 id="about-title" class="section-title">Über uns</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>
+                            Wir sind Ihr vertrauensvoller Partner bei allen Fragen rund um Sozialleistungen. 
+                            Mit langjähriger Erfahrung unterstützen wir Menschen dabei, ihre Rechte zu verstehen 
+                            und erfolgreich Anträge zu stellen.
+                        </p>
+                        <p>
+                            Unser Team kennt sich bestens mit den komplexen Regelungen aus und hilft Ihnen dabei, 
+                            den Überblick zu behalten. Wir begleiten Sie von der ersten Beratung bis zur erfolgreichen 
+                            Bewilligung Ihrer Leistungen.
+                        </p>
+                        
+                        <h3>Unsere Vorteile:</h3>
+                        <ul class="advantages-list">
+                            <li>Kostenlose Erstberatung</li>
+                            <li>Langjährige Erfahrung</li>
+                            <li>Persönliche Betreuung</li>
+                            <li>Schnelle Bearbeitung</li>
+                            <li>Transparente Kosten</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Jobcoach Münster</h3>
+                    <p>Professionelle Hilfe bei Sozialleistungen</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Rechtliches</h4>
+                    <ul class="footer-links">
+                        <li><a href="/legal/impressum.html">Impressum</a></li>
+                        <li><a href="/legal/datenschutz.html">Datenschutz</a></li>
+                        <li><a href="/legal/agb.html">AGB</a></li>
+                        <li><a href="/legal/widerruf.html">Widerruf</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Kontakt</h4>
+                    <ul class="footer-links">
+                        <li>Telefon: +49 251 XXX-XXXX</li>
+                        <li>E-Mail: info@jobcoachmuenster.de</li>
+                        <li>Münster, Deutschland</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Sprachen</h4>
+                    <ul class="footer-links">
+                        <li><a href="/leichte-sprache.html" lang="de-simple">Leichte Sprache</a></li>
+                        <li><button type="button" id="cookie-settings-footer" class="link-button">Cookie-Einstellungen</button></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Jobcoach Münster. Alle Rechte vorbehalten.</p>
+                <p class="disclaimer">
+                    <strong>Hinweis:</strong> Wir bieten keine Rechtsberatung. Unsere Dienstleistungen umfassen 
+                    allgemeine Informationen und Unterstützung bei Antragsverfahren.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Consent Modals -->
+    <div id="microphone-consent-modal" class="modal" role="dialog" aria-labelledby="microphone-consent-title" aria-hidden="true">
+        <div class="modal-content">
+            <h3 id="microphone-consent-title">Mikrofon-Nutzung</h3>
+            <p>
+                Wir möchten Ihr Mikrofon nutzen, um Sprachaufnahmen für die Texterkennung zu verarbeiten. 
+                Die Aufnahmen werden nur für diesen Zweck verwendet und nicht gespeichert.
+            </p>
+            <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (Einwilligung)</p>
+            <p><strong>Widerruf:</strong> Sie können diese Einwilligung jederzeit widerrufen.</p>
+            <div class="modal-buttons">
+                <button type="button" id="microphone-consent-accept" class="btn btn-primary">Zustimmen</button>
+                <button type="button" id="microphone-consent-reject" class="btn btn-outline">Ablehnen</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="upload-consent-modal" class="modal" role="dialog" aria-labelledby="upload-consent-title" aria-hidden="true">
+        <div class="modal-content">
+            <h3 id="upload-consent-title">Datei-Upload</h3>
+            <p>
+                Wir möchten Ihre hochgeladenen Dokumente zur Antragsvorbereitung speichern und verarbeiten. 
+                Die Dateien werden nach Abschluss der Beratung gelöscht.
+            </p>
+            <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (Einwilligung)</p>
+            <p><strong>Speicherdauer:</strong> 90 Tage nach Abschluss</p>
+            <p><strong>Widerruf:</strong> Sie können diese Einwilligung jederzeit widerrufen.</p>
+            <div class="modal-buttons">
+                <button type="button" id="upload-consent-accept" class="btn btn-primary">Zustimmen</button>
+                <button type="button" id="upload-consent-reject" class="btn btn-outline">Ablehnen</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="whatsapp-consent-modal" class="modal" role="dialog" aria-labelledby="whatsapp-consent-title" aria-hidden="true">
+        <div class="modal-content">
+            <h3 id="whatsapp-consent-title">WhatsApp-Kontakt</h3>
+            <p>
+                Wir möchten Sie über WhatsApp kontaktieren. Dabei werden Ihre Daten an WhatsApp (Meta) übermittelt. 
+                Bitte verwenden Sie nur nicht-sensible Informationen.
+            </p>
+            <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (Einwilligung)</p>
+            <p><strong>Empfänger:</strong> Meta Platforms (USA)</p>
+            <p><strong>Widerruf:</strong> Sie können diese Einwilligung jederzeit widerrufen.</p>
+            <div class="modal-buttons">
+                <button type="button" id="whatsapp-consent-accept" class="btn btn-primary">Zustimmen</button>
+                <button type="button" id="whatsapp-consent-reject" class="btn btn-outline">Ablehnen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Summary -->
+    <div id="error-summary" class="error-summary" role="alert" aria-live="assertive" hidden>
+        <h3>Bitte korrigieren Sie folgende Fehler:</h3>
+        <ul id="error-list"></ul>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="loading-spinner" role="status" aria-label="Wird geladen..." hidden>
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/assets/app.js" defer></script>
+    <script src="/assets/3d.js" defer></script>
+</body>
+</html>
