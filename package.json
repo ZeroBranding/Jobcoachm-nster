@@ -4,11 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "http-server -c-1 .",
+    "lint": "eslint . --ext .js .ts",
+    "test:unit": "echo \"No unit tests yet\" && exit 0",
     "test:e2e": "playwright test"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.1",
     "@playwright/test": "^1.46.0",
+    "eslint": "^8.56.0",
     "http-server": "^14.1.1"
   }
 }
