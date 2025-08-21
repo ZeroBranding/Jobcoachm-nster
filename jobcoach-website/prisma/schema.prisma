@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,69 +7,428 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Application {
-  id            String   @id @default(cuid())
-  type          ApplicationType
-  status        ApplicationStatus @default(PENDING)
+// ============= CORE ENTITIES =============
+
+model Person {
+  id                String    @id @default(cuid())
+  anrede            Anrede?
+  titel             String?
+  vorname           String
+  nachname          String
+  geburtsdatum      DateTime
+  geburtsort        String?
+  staatsangehoerigkeit String @default("DE")
+  familienstand     Familienstand?
   
-  // Personal Data
-  firstName     String
-  lastName      String
-  email         String
-  phone         String
-  dateOfBirth   DateTime
-  address       String
-  city          String
-  postalCode    String
+  // Contact
+  email             String    @unique
+  telefon           String?
+  mobiltelefon      String?
   
-  // Form specific data (JSON)
-  formData      Json
-  
-  // Signature
-  signature     String?  // Base64 encoded signature image
-  signedAt      DateTime?
-  
-  // GDPR
-  gdprConsent   Boolean  @default(false)
-  gdprConsentAt DateTime?
-  
-  // Timestamps
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  expiresAt     DateTime // Auto-delete after this date
+  // Identifikation
+  steuerIdNummer    String?   @unique
+  sozialversicherungsNummer String? @unique
+  personalausweisnummer String?
   
   // Relations
-  documents     Document[]
+  adresseId         String?
+  adresse           Adresse?  @relation(fields: [adresseId], references: [id])
+  haushalte         HaushaltMitglied[]
+  antraege          Antrag[]
+  dokumente         Dokument[]
+  
+  // Metadata
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  deletedAt         DateTime? // Soft delete for GDPR
   
   @@index([email])
+  @@index([nachname, vorname])
+}
+
+model Adresse {
+  id                String    @id @default(cuid())
+  strasse           String
+  hausnummer        String
+  adresszusatz      String?
+  plz               String
+  ort               String
+  bundesland        Bundesland @default(NRW)
+  land              String    @default("Deutschland")
+  
+  // Relations
+  personen          Person[]
+  haushalte         Haushalt[]
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@unique([strasse, hausnummer, plz])
+  @@index([plz])
+}
+
+model Haushalt {
+  id                String    @id @default(cuid())
+  bezeichnung       String
+  typ               HaushaltTyp
+  
+  // Finanzen
+  gesamteinkommen   Decimal?  @db.Decimal(10, 2)
+  mietkosten        Decimal?  @db.Decimal(10, 2)
+  nebenkosten       Decimal?  @db.Decimal(10, 2)
+  heizkosten        Decimal?  @db.Decimal(10, 2)
+  
+  // Relations
+  adresseId         String
+  adresse           Adresse   @relation(fields: [adresseId], references: [id])
+  mitglieder        HaushaltMitglied[]
+  antraege          Antrag[]
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@index([adresseId])
+}
+
+model HaushaltMitglied {
+  id                String    @id @default(cuid())
+  haushaltId        String
+  haushalt          Haushalt  @relation(fields: [haushaltId], references: [id], onDelete: Cascade)
+  personId          String
+  person            Person    @relation(fields: [personId], references: [id], onDelete: Cascade)
+  rolle             HaushaltRolle
+  istHauptantragsteller Boolean @default(false)
+  
+  createdAt         DateTime  @default(now())
+  
+  @@unique([haushaltId, personId])
+  @@index([personId])
+}
+
+// ============= ANTRAG SYSTEM =============
+
+model Antrag {
+  id                String    @id @default(cuid())
+  referenzNummer    String    @unique @default(cuid())
+  typ               LeistungTyp
+  status            AntragStatus @default(ENTWURF)
+  prioritaet        Prioritaet @default(NORMAL)
+  
+  // Antragsteller
+  personId          String
+  person            Person    @relation(fields: [personId], references: [id])
+  haushaltId        String?
+  haushalt          Haushalt? @relation(fields: [haushaltId], references: [id])
+  
+  // Daten
+  formularDaten     Json      // Strukturierte Formulardaten
+  begruendung       String?   @db.Text
+  
+  // Termine & Fristen
+  eingereichtAm     DateTime?
+  bearbeitetAm      DateTime?
+  entschiedenAm     DateTime?
+  fristBis          DateTime?
+  
+  // Bearbeitung
+  sachbearbeiterId  String?
+  sachbearbeiter    Admin?    @relation(fields: [sachbearbeiterId], references: [id])
+  
+  // Relations
+  dokumente         Dokument[]
+  statusHistorie    StatusHistorie[]
+  nachrichten       Nachricht[]
+  
+  // GDPR
+  einwilligungDatenschutz Boolean @default(false)
+  einwilligungDatenschutzAm DateTime?
+  loeschungGeplanntAm DateTime?
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
   @@index([status])
-  @@index([expiresAt])
+  @@index([typ])
+  @@index([personId])
+  @@index([referenzNummer])
 }
 
-model Document {
-  id            String   @id @default(cuid())
-  applicationId String
-  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+model StatusHistorie {
+  id                String    @id @default(cuid())
+  antragId          String
+  antrag            Antrag    @relation(fields: [antragId], references: [id], onDelete: Cascade)
   
-  fileName      String
-  fileType      String
-  fileSize      Int
-  filePath      String
+  vonStatus         AntragStatus
+  zuStatus          AntragStatus
+  grund             String?
+  kommentar         String?   @db.Text
   
-  createdAt     DateTime @default(now())
+  bearbeiterId      String?
+  bearbeiter        Admin?    @relation(fields: [bearbeiterId], references: [id])
   
-  @@index([applicationId])
+  createdAt         DateTime  @default(now())
+  
+  @@index([antragId])
+  @@index([createdAt])
 }
 
-enum ApplicationType {
-  ALG           // Arbeitslosengeld
-  KINDERGELD    // Kindergeld
-  WOHNGELD      // Wohngeld
+model Dokument {
+  id                String    @id @default(cuid())
+  typ               DokumentTyp
+  name              String
+  beschreibung      String?
+  
+  // File Info
+  dateiName         String
+  dateiGroesse      Int       // in Bytes
+  mimeType          String
+  speicherPfad      String    // S3 oder lokaler Pfad
+  
+  // Relations
+  personId          String?
+  person            Person?   @relation(fields: [personId], references: [id])
+  antragId          String?
+  antrag            Antrag?   @relation(fields: [antragId], references: [id], onDelete: Cascade)
+  
+  // Metadata
+  istVertraulich    Boolean   @default(false)
+  istVerifiziert    Boolean   @default(false)
+  verifiziertAm     DateTime?
+  verifiziertVon    String?
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@index([antragId])
+  @@index([personId])
+  @@index([typ])
 }
 
-enum ApplicationStatus {
-  PENDING
-  IN_PROGRESS
-  COMPLETED
-  CANCELLED
+// ============= KOMMUNIKATION =============
+
+model Nachricht {
+  id                String    @id @default(cuid())
+  antragId          String
+  antrag            Antrag    @relation(fields: [antragId], references: [id], onDelete: Cascade)
+  
+  absenderTyp       AbsenderTyp
+  absenderId        String?   // Person oder Admin ID
+  empfaengerTyp     AbsenderTyp
+  empfaengerId      String?
+  
+  betreff           String
+  inhalt            String    @db.Text
+  gelesen           Boolean   @default(false)
+  gelesenAm         DateTime?
+  
+  createdAt         DateTime  @default(now())
+  
+  @@index([antragId])
+  @@index([empfaengerId, gelesen])
+}
+
+// ============= ADMIN & AUTH =============
+
+model Admin {
+  id                String    @id @default(cuid())
+  email             String    @unique
+  passwortHash      String
+  
+  vorname           String
+  nachname          String
+  rolle             AdminRolle
+  abteilung         String?
+  
+  istAktiv          Boolean   @default(true)
+  letzteAnmeldung   DateTime?
+  
+  // Relations
+  bearbeiteteAntraege Antrag[]
+  statusAenderungen StatusHistorie[]
+  sessions          Session[]
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@index([email])
+}
+
+model Session {
+  id                String    @id @default(cuid())
+  token             String    @unique
+  adminId           String
+  admin             Admin     @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  
+  ipAdresse         String?
+  userAgent         String?
+  
+  expiresAt         DateTime
+  createdAt         DateTime  @default(now())
+  
+  @@index([token])
+  @@index([adminId])
+}
+
+// ============= KONFIGURATION =============
+
+model Leistung {
+  id                String    @id @default(cuid())
+  typ               LeistungTyp @unique
+  bezeichnung       String
+  beschreibung      String    @db.Text
+  
+  // Konfiguration
+  istAktiv          Boolean   @default(true)
+  prioritaet        Int       @default(0)
+  bearbeitungsdauerTage Int   @default(30)
+  
+  // Formulare & Dokumente
+  formularSchema    Json      // JSON Schema für Validierung
+  erforderlicheDokumente Json // Array von DokumentTyp
+  
+  // Beträge (für Berechnungen)
+  grundbetrag       Decimal?  @db.Decimal(10, 2)
+  zusatzbetraege    Json?     // Konfigurierbare Zusätze
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+model Einstellung {
+  id                String    @id @default(cuid())
+  schluessel        String    @unique
+  wert              Json
+  typ               EinstellungTyp
+  beschreibung      String?
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  @@index([schluessel])
+}
+
+// ============= ENUMS =============
+
+enum Anrede {
+  HERR
+  FRAU
+  DIVERS
+  KEINE
+}
+
+enum Familienstand {
+  LEDIG
+  VERHEIRATET
+  GESCHIEDEN
+  VERWITWET
+  GETRENNT_LEBEND
+  EINGETRAGENE_PARTNERSCHAFT
+  AUFGEHOBENE_PARTNERSCHAFT
+}
+
+enum Bundesland {
+  BW  // Baden-Württemberg
+  BY  // Bayern
+  BE  // Berlin
+  BB  // Brandenburg
+  HB  // Bremen
+  HH  // Hamburg
+  HE  // Hessen
+  MV  // Mecklenburg-Vorpommern
+  NI  // Niedersachsen
+  NRW // Nordrhein-Westfalen
+  RP  // Rheinland-Pfalz
+  SL  // Saarland
+  SN  // Sachsen
+  ST  // Sachsen-Anhalt
+  SH  // Schleswig-Holstein
+  TH  // Thüringen
+}
+
+enum HaushaltTyp {
+  EINZELPERSON
+  PAAR_OHNE_KINDER
+  PAAR_MIT_KINDERN
+  ALLEINERZIEHEND
+  WG
+  SONSTIGE
+}
+
+enum HaushaltRolle {
+  ANTRAGSTELLER
+  EHEPARTNER
+  LEBENSPARTNER
+  KIND
+  ELTERNTEIL
+  GESCHWISTER
+  SONSTIGE
+}
+
+enum LeistungTyp {
+  BUERGERGELD
+  ALG_I
+  KINDERGELD
+  WOHNGELD
+  KINDERZUSCHLAG
+  ELTERNGELD
+  UNTERHALTSVORSCHUSS
+  BAB // Berufsausbildungsbeihilfe
+  BAFOEG
+  GRUNDSICHERUNG
+}
+
+enum AntragStatus {
+  ENTWURF
+  EINGEREICHT
+  IN_BEARBEITUNG
+  RUECKFRAGE
+  BEWILLIGT
+  ABGELEHNT
+  ZURUECKGEZOGEN
+  ARCHIVIERT
+}
+
+enum Prioritaet {
+  NIEDRIG
+  NORMAL
+  HOCH
+  DRINGEND
+}
+
+enum DokumentTyp {
+  PERSONALAUSWEIS
+  REISEPASS
+  GEBURTSURKUNDE
+  HEIRATSURKUNDE
+  MIETVERTRAG
+  ARBEITSVERTRAG
+  KUENDIGUNG
+  EINKOMMENSNACHWEIS
+  KONTOAUSZUG
+  STEUERBESCHEID
+  VERSICHERUNGSNACHWEIS
+  AERZTLICHES_ATTEST
+  SONSTIGES
+}
+
+enum AbsenderTyp {
+  ANTRAGSTELLER
+  SACHBEARBEITER
+  SYSTEM
+}
+
+enum AdminRolle {
+  SUPER_ADMIN
+  ADMIN
+  SACHBEARBEITER
+  SUPPORT
+  READONLY
+}
+
+enum EinstellungTyp {
+  SYSTEM
+  FORMULAR
+  EMAIL
+  BENACHRICHTIGUNG
+  FRISTEN
 }
