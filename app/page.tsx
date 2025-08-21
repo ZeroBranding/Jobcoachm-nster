@@ -1,6 +1,6 @@
 "use client";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Float } from "@react-three/drei";
+import { Float } from "@react-three/drei";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
@@ -25,12 +25,11 @@ function HologramSphere() {
 export default function HomePage() {
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 -z-10 pointer-events-none">
         <Canvas camera={{ position: [0, 0, 4] }}>
           <ambientLight intensity={0.6} />
           <pointLight position={[10, 10, 10]} />
           <HologramSphere />
-          <OrbitControls enablePan={false} enableZoom={false} />
         </Canvas>
       </div>
 
