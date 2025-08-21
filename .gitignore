@@ -64,3 +64,37 @@ backup-*
 # Temporary files
 tmp/
 temp/
+
+# ---- additions ----
+# Hosting / platform caches
+.vercel
+.pnpm-store
+
+# Monorepo / build caches
+.turbo/
+.eslintcache
+node_modules/.cache/
+
+# Additional envs
+.env.development
+.env.test
+
+# Extra IDE metadata
+.history/
+.fleet/
+
+# Extra OS cruft
+ehthumbs.db
+Icon?
+
+# Extra cert formats
+*.p12
+*.pfx
+
+# Patch artifacts
+*.orig
+*.rej
+
+# Extra temp files
+.tmp/
+*.tmp

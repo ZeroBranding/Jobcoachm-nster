@@ -10,6 +10,11 @@
       "files": ["src/backend/**/*.ts"],
       "parserOptions": { "project": ["./tsconfig.backend.json"] }
     }
+    ,
+    {
+      "files": ["**/*.test.ts", "**/*.spec.ts"],
+      "env": { "jest": true, "node": true }
+    }
   ],
   "parserOptions": {
     "ecmaVersion": 12,
