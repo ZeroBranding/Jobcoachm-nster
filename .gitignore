@@ -8,6 +8,8 @@ build/
 .cache/
 .vite/
 coverage/
+playwright-report/
+test-results/
 
 # Logs
 npm-debug.log*
