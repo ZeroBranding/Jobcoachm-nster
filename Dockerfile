@@ -24,4 +24,3 @@ COPY --from=base /app/dist ./dist
 EXPOSE 3000 4000
 
 CMD ["sh", "-c", "node dist/backend/index.js & next start -p 3000"]
-

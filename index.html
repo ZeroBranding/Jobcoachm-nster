@@ -45,7 +45,7 @@
     
     <!-- Preload critical resources -->
     <link rel="preload" href="/assets/app.css" as="style">
-    <link rel="preload" href="/assets/app.js" as="script">
+    <link rel="modulepreload" href="/src/main.js">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
@@ -520,7 +520,6 @@
     </div>
 
     <!-- Scripts -->
-    <script src="/assets/app.js" defer></script>
-    <script src="/assets/3d.js" defer></script>
+    <script type="module" src="/src/main.js" nonce="__CSP_NONCE__"></script>
 </body>
 </html>

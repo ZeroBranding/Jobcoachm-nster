@@ -1,10 +1,22 @@
 {
-  "extends": ["next/core-web-vitals"],
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": ["next/core-web-vitals", "eslint:recommended"],
   "overrides": [
     {
       "files": ["src/backend/**/*.ts"],
       "parserOptions": { "project": ["./tsconfig.backend.json"] }
     }
-  ]
+  ],
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-unused-vars": "warn",
+    "no-console": "off"
+  }
 }
-
