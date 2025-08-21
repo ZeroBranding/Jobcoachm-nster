@@ -1,0 +1,13 @@
+# Example security headers (configure on your server/proxy)
+
+Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-<RANDOM>' strict-dynamic https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none';
+Permissions-Policy: microphone=(self), camera=(), geolocation=()
+Referrer-Policy: strict-origin-when-cross-origin
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+
+# Notes:
+# - Add https://unpkg.com to script-src only if you keep loading Three.js from CDN.
+# - Prefer self-hosting Three.js to remove external origins from CSP.
+# - Generate a fresh nonce per response and attach to inline <script> blocks.

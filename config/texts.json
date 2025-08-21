@@ -1,0 +1,13 @@
+{
+  "plain": {
+    "hero.title": "Schnell, barrierefrei und sicher zum Antrag",
+    "hero.subtitle": "Wir prüfen Ihre Situation, listen Unterlagen und bereiten Formulare vor. Keine Rechtsberatung.",
+    "services.intro": "Wir unterstützen bei Bürgergeld, Wohngeld, Kindergeld, Elterngeld: Vorprüfung, Unterlagenliste, Formularhilfe, Anschreiben."
+  },
+  "leicht": {
+    "hero.title": "Wir helfen beim Antrag",
+    "hero.subtitle": "Wir prüfen. Wir machen eine Liste. Am Ende gibt es ein PDF. Keine Rechtsberatung.",
+    "services.intro": "Wir helfen bei Bürgergeld, Wohngeld, Kindergeld, Elterngeld. Wir prüfen und füllen Formulare."
+  }
+}
+

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jobcoach Münster – Sozialleistungs‑Assistent</title>
+    <meta name="description" content="Hilfe bei Anträgen zu Sozialleistungen (z. B. Bürgergeld, Wohngeld, Kindergeld, Elterngeld). Barrierefrei, DSGVO‑konform, mit 3D‑UI und Consent‑Management." />
+    <meta name="theme-color" content="#0ea5e9" />
+    <link rel="canonical" href="/" />
+    <meta name="robots" content="index,follow" />
+    <meta property="og:title" content="Jobcoach Münster – Sozialleistungs‑Assistent" />
+    <meta property="og:description" content="Barrierearme Unterstützung bei Anträgen. Keine Rechtsberatung." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🧭</text></svg>" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Jobcoach Münster",
+        "description": "Unterstützung bei Sozialleistungen (keine Rechtsberatung)",
+        "url": "/",
+        "inLanguage": "de"
+      }
+    </script>
+
+    <link rel="stylesheet" href="/assets/app.css" />
+    <noscript>
+      <style>
+        .requires-js { display: none !important; }
+      </style>
+    </noscript>
+    <script type="module" src="/assets/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skiplink" href="#main">Zum Inhalt springen</a>
+
+    <header class="site-header" role="banner">
+      <div class="container header-inner">
+        <a class="brand" href="#home" aria-label="Startseite">Jobcoach Münster</a>
+        <nav class="site-nav" aria-label="Hauptnavigation">
+          <ul>
+            <li><a href="#leistungen">Leistungen</a></li>
+            <li><a href="#dokumente">Dokumente</a></li>
+            <li><a href="#rechner">Vorprüfung</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+            <li><button class="btn-link" id="btn-consent-open" type="button">Einstellungen</button></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="site-main" role="main">
+      <section id="home" class="hero" aria-label="Hero">
+        <div class="hero-visual">
+          <div id="hero-3d" class="hero-3d" aria-hidden="true"></div>
+          <div class="hero-fallback" aria-hidden="true"></div>
+        </div>
+        <div class="container hero-content glass">
+          <h1 data-i18n="hero.title">Schnell, barrierefrei und sicher zum Antrag</h1>
+          <p data-i18n="hero.subtitle">Wir prüfen Ihre Situation, listen Unterlagen und bereiten Formulare vor. Keine Rechtsberatung.</p>
+          <div class="hero-ctas">
+            <a href="#kontakt" class="btn btn-primary">Jetzt starten</a>
+            <button id="btn-plain-toggle" class="btn" type="button">Leichte Sprache</button>
+          </div>
+          <p class="motion-note" id="motion-note" hidden>Bewegte Effekte sind deaktiviert (Einstellung für reduzierte Bewegung erkannt).</p>
+        </div>
+      </section>
+
+      <section id="leistungen" class="section" aria-labelledby="leistungen-h">
+        <div class="container">
+          <h2 id="leistungen-h">Leistungen</h2>
+          <p data-i18n="services.intro">Wir unterstützen bei Bürgergeld, Wohngeld, Kindergeld, Elterngeld: Vorprüfung, Unterlagenliste, Formularhilfe, Anschreiben.</p>
+          <ul class="list">
+            <li>Vorprüfung der Anspruchslage (ohne verbindliche Bewertung)</li>
+            <li>Dokumenten-Checkliste und Upload</li>
+            <li>Formular-Vorbereitung und PDF-Erstellung</li>
+            <li>Optionales Anschreiben an die Behörden</li>
+          </ul>
+          <p class="note">Hinweis: Im UI werden keine festen Beträge angezeigt. Entscheidungen treffen die zuständigen Behörden.</p>
+        </div>
+      </section>
+
+      <section id="dokumente" class="section" aria-labelledby="dokumente-h">
+        <div class="container">
+          <h2 id="dokumente-h">Dokumenten‑Checkliste</h2>
+          <div class="cards">
+            <article class="card">
+              <h3>Bürgergeld</h3>
+              <ul>
+                <li>Ausweis</li>
+                <li>Mietkosten‑Nachweise</li>
+                <li>Kontoauszüge (3 Monate)</li>
+                <li>Einkommen/Vermögen</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Kindergeld</h3>
+              <ul>
+                <li>Geburtsurkunde</li>
+                <li>Steuer‑IDs</li>
+                <li>Ausbildungsnachweis ab 18</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Wohngeld</h3>
+              <ul>
+                <li>Mietvertrag/aktuelle Miethöhe (≤ 3 Monate)</li>
+                <li>Meldebestätigung</li>
+                <li>Einkommensnachweise</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Elterngeld</h3>
+              <ul>
+                <li>Geburtsurkunde</li>
+                <li>Einkommensnachweise</li>
+                <li>Arbeitgeberbestätigung</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="rechner" class="section" aria-labelledby="rechner-h">
+        <div class="container">
+          <h2 id="rechner-h">Vorprüfung (ohne Beträge)</h2>
+          <form id="precheck-form" class="form" novalidate>
+            <div class="grid">
+              <label>
+                <span>Zahlen Sie Wohnkosten in DE? <span aria-hidden="true">*</span></span>
+                <select name="wohnkosten" required>
+                  <option value="">Bitte wählen</option>
+                  <option value="ja">Ja</option>
+                  <option value="nein">Nein</option>
+                </select>
+              </label>
+              <label>
+                <span>Haushaltsgröße <span aria-hidden="true">*</span></span>
+                <input name="haushaltsgroesse" type="number" min="1" required />
+              </label>
+              <label>
+                <span>Haushaltsnettoeinkommen (Monat) <span aria-hidden="true">*</span></span>
+                <input name="netto_monat" inputmode="decimal" required />
+              </label>
+              <label>
+                <span>PLZ <span aria-hidden="true">*</span></span>
+                <input name="plz" pattern="^\\d{5}$" required />
+              </label>
+            </div>
+            <button class="btn btn-secondary" type="submit">Prüfen</button>
+          </form>
+          <div id="precheck-result" class="result" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section id="kontakt" class="section" aria-labelledby="kontakt-h">
+        <div class="container">
+          <h2 id="kontakt-h">Kontakt & Anfrage</h2>
+          <div id="form-errors" class="sr-only" role="status" aria-live="polite"></div>
+          <form id="contact-form" class="form" method="post" action="/api/submit" enctype="multipart/form-data" novalidate>
+            <input type="hidden" name="csrf_token" id="csrf_token" />
+            <div class="grid">
+              <label>
+                <span>Vollständiger Name <span aria-hidden="true">*</span></span>
+                <input name="name" type="text" autocomplete="name" required minlength="2" />
+              </label>
+              <label>
+                <span>E‑Mail <span aria-hidden="true">*</span></span>
+                <input name="email" type="email" autocomplete="email" required />
+              </label>
+              <label>
+                <span>Telefon</span>
+                <input name="phone" type="tel" pattern="^[+0-9 ()-]{6,}$" autocomplete="tel" />
+              </label>
+              <label>
+                <span>Art der Leistung <span aria-hidden="true">*</span></span>
+                <select name="benefit" required>
+                  <option value="">Bitte wählen</option>
+                  <option value="alg1">Arbeitslosengeld I</option>
+                  <option value="buergergeld">Bürgergeld</option>
+                  <option value="kindergeld">Kindergeld</option>
+                  <option value="wohngeld">Wohngeld</option>
+                  <option value="elterngeld">Elterngeld</option>
+                </select>
+              </label>
+              <label class="span-2">
+                <span>Beschreibung <span aria-hidden="true">*</span></span>
+                <textarea name="message" rows="5" minlength="20" required></textarea>
+              </label>
+              <label>
+                <span>Dringlichkeit</span>
+                <select name="priority">
+                  <option value="normal">Normal</option>
+                  <option value="hoch">Hoch</option>
+                </select>
+              </label>
+              <label>
+                <span>Vollmacht‑Upload (PDF/JPEG/PNG, max. 10 MB)</span>
+                <input name="poa_file" type="file" accept=".pdf,image/jpeg,image/png" />
+              </label>
+            </div>
+            <fieldset class="consents">
+              <legend>Optionale Einwilligungen</legend>
+              <div class="consent-row">
+                <button id="btn-consent-mic" type="button" class="btn">Mikrofon nutzen</button>
+                <span class="consent-status" id="status-consent-mic" aria-live="polite"></span>
+              </div>
+              <div class="consent-row">
+                <button id="btn-consent-upload" type="button" class="btn">Datei‑Upload erlauben</button>
+                <span class="consent-status" id="status-consent-upload" aria-live="polite"></span>
+              </div>
+              <div class="consent-row">
+                <button id="btn-consent-wa" type="button" class="btn">WhatsApp Kontakt</button>
+                <span class="consent-status" id="status-consent-wa" aria-live="polite"></span>
+              </div>
+            </fieldset>
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit">Senden</button>
+              <button id="btn-delete-now" class="btn btn-danger" type="button">Daten sofort löschen</button>
+            </div>
+            <p class="legal-note">Mit dem Absenden willigen Sie in die Verarbeitung zum Zweck der Auftragsbearbeitung ein (Art. 6 Abs. 1 lit. b DSGVO). Details siehe <a href="/legal/datenschutz.template.md" target="_blank" rel="noopener">Datenschutz</a>. Keine Rechtsberatung.</p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="container footer-inner">
+        <nav aria-label="Rechtliches">
+          <ul>
+            <li><a href="/legal/impressum.template.md" target="_blank" rel="noopener">Impressum</a></li>
+            <li><a href="/legal/datenschutz.template.md" target="_blank" rel="noopener">Datenschutz</a></li>
+            <li><a href="/legal/agb.template.md" target="_blank" rel="noopener">AGB</a></li>
+            <li><a href="/legal/widerruf.template.md" target="_blank" rel="noopener">Widerruf</a></li>
+            <li><a href="/legal/einwilligungen.template.md" target="_blank" rel="noopener">Einwilligungen</a></li>
+          </ul>
+        </nav>
+        <p class="small">© <span id="year"></span> Jobcoach Münster. Alle Rechte vorbehalten.</p>
+      </div>
+    </footer>
+
+    <div id="consent-banner" class="consent-banner" role="dialog" aria-live="polite" aria-modal="true" aria-labelledby="consent-title" hidden>
+      <div class="consent-inner" role="document">
+        <h2 id="consent-title">Datenschutz‑Einstellungen</h2>
+        <p>Wir verwenden essenzielle Cookies für den Betrieb. Für Komfort‑Funktionen (z. B. 3D‑Effekte) und optionale Analytics bitten wir um Ihre Einwilligung.</p>
+        <form id="consent-form">
+          <div class="consent-group">
+            <label class="switch">
+              <input type="checkbox" name="essential" checked disabled />
+              <span>Essenzielle Funktionen (immer aktiv)</span>
+            </label>
+          </div>
+          <div class="consent-group">
+            <label class="switch">
+              <input type="checkbox" name="comfort" />
+              <span>Komfort (3D/Hologramm, Parallax, Medien)</span>
+            </label>
+          </div>
+          <div class="consent-group">
+            <label class="switch">
+              <input type="checkbox" name="analytics" />
+              <span>Analytics (optional, deaktiviert)</span>
+            </label>
+          </div>
+          <div class="consent-actions">
+            <button type="button" id="btn-consent-essentials" class="btn">Nur essenziell</button>
+            <button type="submit" class="btn btn-primary">Einstellungen speichern</button>
+            <button type="button" id="btn-consent-accept-all" class="btn btn-secondary">Alle akzeptieren</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="modal-consent" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+      <div class="modal-content" role="document">
+        <h2 id="modal-title">Einwilligung erforderlich</h2>
+        <div id="modal-body"></div>
+        <div class="modal-actions">
+          <button type="button" id="modal-decline" class="btn">Ablehnen</button>
+          <button type="button" id="modal-accept" class="btn btn-primary">Einwilligen</button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</html>
+
