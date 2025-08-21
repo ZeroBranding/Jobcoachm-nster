@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Text3D, Center, OrbitControls, Float } from '@react-three/drei'
 import * as THREE from 'three'
@@ -43,19 +43,8 @@ function HologramText() {
   return (
     <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
       <Center>
-        <Text3D
-          ref={meshRef}
-          font="/fonts/helvetiker_regular.typeface.json"
-          size={1.5}
-          height={0.3}
-          curveSegments={12}
-          bevelEnabled
-          bevelThickness={0.02}
-          bevelSize={0.02}
-          bevelOffset={0}
-          bevelSegments={5}
-        >
-          JobCoach
+        <mesh ref={meshRef}>
+          <textGeometry args={['JobCoach', { size: 1.5, height: 0.3 }]} />
           <meshStandardMaterial
             ref={materialRef}
             color="#3B82F6"
@@ -64,7 +53,7 @@ function HologramText() {
             roughness={0.2}
             metalness={0.8}
           />
-        </Text3D>
+        </mesh>
       </Center>
     </Float>
   )
@@ -109,8 +98,48 @@ function ParticleField() {
   )
 }
 
-const HologramIntro: React.FC<HologramIntroProps> = ({ onComplete }) => {
+// Fallback component for reduced motion or low performance
+const FallbackIntro: React.FC<{ onComplete?: () => void }> = ({ onComplete }) => {
   useEffect(() => {
+    const timer = setTimeout(() => {
+      onComplete?.()
+    }, 2000)
+    return () => clearTimeout(timer)
+  }, [onComplete])
+
+  return (
+    <div 
+      className="w-full h-full bg-gradient-to-br from-blue-900 via-purple-900 to-black flex items-center justify-center"
+      data-testid="3d-fallback"
+    >
+      <div className="text-center">
+        <h1 className="text-6xl font-bold gradient-text animate-pulse">JobCoach</h1>
+        <p className="text-xl text-gray-300 mt-4">Ihr digitaler Karrierebegleiter</p>
+      </div>
+    </div>
+  )
+}
+
+const HologramIntro: React.FC<HologramIntroProps> = ({ onComplete }) => {
+  const [shouldUse3D, setShouldUse3D] = useState(true)
+  const [hasError, setHasError] = useState(false)
+
+  useEffect(() => {
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    
+    // Check for low performance indicators
+    const isLowEnd = navigator.hardwareConcurrency <= 2
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    
+    // Check WebGL support
+    const canvas = document.createElement('canvas')
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl')
+    const hasWebGL = !!gl
+    
+    // Determine if we should use 3D
+    setShouldUse3D(!prefersReducedMotion && !isLowEnd && hasWebGL && !isMobile)
+
     const timer = setTimeout(() => {
       onComplete?.()
     }, 3500)
@@ -118,11 +147,33 @@ const HologramIntro: React.FC<HologramIntroProps> = ({ onComplete }) => {
     return () => clearTimeout(timer)
   }, [onComplete])
 
+  if (hasError || !shouldUse3D) {
+    return <FallbackIntro onComplete={onComplete} />
+  }
+
   return (
     <div className="w-full h-full bg-black">
+      <button
+        onClick={() => onComplete?.()}
+        className="absolute top-4 right-4 z-10 px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
+        data-testid="skip-intro"
+      >
+        Überspringen
+      </button>
+      
       <Canvas
         camera={{ position: [0, 0, 8], fov: 50 }}
-        gl={{ antialias: true, alpha: true }}
+        gl={{ 
+          antialias: true, 
+          alpha: true,
+          powerPreference: 'high-performance',
+          failIfMajorPerformanceCaveat: false
+        }}
+        dpr={[1, Math.min(window.devicePixelRatio, 2)]} // Limit DPR for performance
+        onCreated={({ gl }) => {
+          gl.toneMapping = THREE.ACESFilmicToneMapping
+        }}
+        onError={() => setHasError(true)}
       >
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} intensity={1} />

@@ -9,6 +9,8 @@ import { toast } from 'react-toastify'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import SignaturePad from '@/components/SignaturePad'
+import FileUpload from '@/components/FileUpload'
+import WhatsAppModal from '@/components/WhatsAppModal'
 import { submitApplication } from '@/lib/api'
 
 const algSchema = z.object({
@@ -46,7 +48,9 @@ type ALGFormData = z.infer<typeof algSchema>
 
 export default function ALGPage() {
   const [signature, setSignature] = useState<string>('')
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showWhatsApp, setShowWhatsApp] = useState(false)
 
   const {
     register,
@@ -81,9 +85,17 @@ export default function ALGPage() {
       }
 
       await submitApplication(applicationData)
+      
+      // Upload files if any
+      if (uploadedFiles.length > 0) {
+        // File upload logic would go here
+        console.log('Uploading files:', uploadedFiles)
+      }
+      
       toast.success('Antrag erfolgreich eingereicht!')
       reset()
       setSignature('')
+      setUploadedFiles([])
     } catch (error) {
       toast.error('Fehler beim Einreichen des Antrags')
       console.error(error)
@@ -96,7 +108,7 @@ export default function ALGPage() {
     <div className="min-h-screen bg-gradient-to-b from-gray-950 to-gray-900">
       <Navigation />
       
-      <div className="container mx-auto px-4 pt-24 pb-12">
+      <main id="main-content" className="container mx-auto px-4 pt-24 pb-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -109,44 +121,94 @@ export default function ALGPage() {
             Füllen Sie das Formular vollständig aus. Alle Angaben werden vertraulich behandelt.
           </p>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+          {/* Live Region for form errors */}
+          <div aria-live="polite" aria-atomic="true" className="sr-only">
+            {Object.keys(errors).length > 0 && (
+              <span>Formular enthält {Object.keys(errors).length} Fehler</span>
+            )}
+          </div>
+
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8" noValidate>
             {/* Personal Information */}
             <div className="glass-effect p-8 rounded-2xl">
               <h2 className="text-2xl font-semibold mb-6">Persönliche Angaben</h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="form-label">Vorname *</label>
-                  <input {...register('firstName')} className="form-input" />
+                  <label htmlFor="firstName" className="form-label">Vorname *</label>
+                  <input 
+                    id="firstName"
+                    {...register('firstName')} 
+                    className="form-input" 
+                    aria-invalid={!!errors.firstName}
+                    aria-describedby={errors.firstName ? 'firstName-error' : undefined}
+                  />
                   {errors.firstName && (
-                    <p className="text-red-400 text-sm mt-1">{errors.firstName.message}</p>
+                    <p id="firstName-error" className="text-red-400 text-sm mt-1" role="alert">
+                      {errors.firstName.message}
+                    </p>
                   )}
                 </div>
                 <div>
-                  <label className="form-label">Nachname *</label>
-                  <input {...register('lastName')} className="form-input" />
+                  <label htmlFor="lastName" className="form-label">Nachname *</label>
+                  <input 
+                    id="lastName"
+                    {...register('lastName')} 
+                    className="form-input"
+                    aria-invalid={!!errors.lastName}
+                    aria-describedby={errors.lastName ? 'lastName-error' : undefined}
+                  />
                   {errors.lastName && (
-                    <p className="text-red-400 text-sm mt-1">{errors.lastName.message}</p>
+                    <p id="lastName-error" className="text-red-400 text-sm mt-1" role="alert">
+                      {errors.lastName.message}
+                    </p>
                   )}
                 </div>
                 <div>
-                  <label className="form-label">E-Mail *</label>
-                  <input {...register('email')} type="email" className="form-input" />
+                  <label htmlFor="email" className="form-label">E-Mail *</label>
+                  <input 
+                    id="email"
+                    {...register('email')} 
+                    type="email" 
+                    className="form-input"
+                    aria-invalid={!!errors.email}
+                    aria-describedby={errors.email ? 'email-error' : undefined}
+                  />
                   {errors.email && (
-                    <p className="text-red-400 text-sm mt-1">{errors.email.message}</p>
+                    <p id="email-error" className="text-red-400 text-sm mt-1" role="alert" aria-live="polite">
+                      {errors.email.message}
+                    </p>
                   )}
                 </div>
                 <div>
-                  <label className="form-label">Telefon *</label>
-                  <input {...register('phone')} type="tel" className="form-input" />
+                  <label htmlFor="phone" className="form-label">Telefon *</label>
+                  <input 
+                    id="phone"
+                    {...register('phone')} 
+                    type="tel" 
+                    className="form-input"
+                    aria-invalid={!!errors.phone}
+                    aria-describedby={errors.phone ? 'phone-error' : undefined}
+                  />
                   {errors.phone && (
-                    <p className="text-red-400 text-sm mt-1">{errors.phone.message}</p>
+                    <p id="phone-error" className="text-red-400 text-sm mt-1" role="alert">
+                      {errors.phone.message}
+                    </p>
                   )}
                 </div>
                 <div>
-                  <label className="form-label">Geburtsdatum *</label>
-                  <input {...register('dateOfBirth')} type="date" className="form-input" />
+                  <label htmlFor="dateOfBirth" className="form-label">Geburtsdatum *</label>
+                  <input 
+                    id="dateOfBirth"
+                    {...register('dateOfBirth')} 
+                    type="date" 
+                    className="form-input"
+                    aria-invalid={!!errors.dateOfBirth}
+                    aria-describedby={errors.dateOfBirth ? 'dateOfBirth-error' : undefined}
+                  />
                   {errors.dateOfBirth && (
-                    <p className="text-red-400 text-sm mt-1">{errors.dateOfBirth.message}</p>
+                    <p id="dateOfBirth-error" className="text-red-400 text-sm mt-1" role="alert">
+                      {errors.dateOfBirth.message}
+                    </p>
                   )}
                 </div>
               </div>
@@ -157,31 +219,51 @@ export default function ALGPage() {
               <h2 className="text-2xl font-semibold mb-6">Adresse</h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="form-label">Straße *</label>
-                  <input {...register('street')} className="form-input" />
+                  <label htmlFor="street" className="form-label">Straße *</label>
+                  <input 
+                    id="street"
+                    {...register('street')} 
+                    className="form-input"
+                    aria-invalid={!!errors.street}
+                  />
                   {errors.street && (
-                    <p className="text-red-400 text-sm mt-1">{errors.street.message}</p>
+                    <p className="text-red-400 text-sm mt-1" role="alert">{errors.street.message}</p>
                   )}
                 </div>
                 <div>
-                  <label className="form-label">Hausnummer *</label>
-                  <input {...register('houseNumber')} className="form-input" />
+                  <label htmlFor="houseNumber" className="form-label">Hausnummer *</label>
+                  <input 
+                    id="houseNumber"
+                    {...register('houseNumber')} 
+                    className="form-input"
+                    aria-invalid={!!errors.houseNumber}
+                  />
                   {errors.houseNumber && (
-                    <p className="text-red-400 text-sm mt-1">{errors.houseNumber.message}</p>
+                    <p className="text-red-400 text-sm mt-1" role="alert">{errors.houseNumber.message}</p>
                   )}
                 </div>
                 <div>
-                  <label className="form-label">PLZ *</label>
-                  <input {...register('postalCode')} className="form-input" />
+                  <label htmlFor="postalCode" className="form-label">PLZ *</label>
+                  <input 
+                    id="postalCode"
+                    {...register('postalCode')} 
+                    className="form-input"
+                    aria-invalid={!!errors.postalCode}
+                  />
                   {errors.postalCode && (
-                    <p className="text-red-400 text-sm mt-1">{errors.postalCode.message}</p>
+                    <p className="text-red-400 text-sm mt-1" role="alert">{errors.postalCode.message}</p>
                   )}
                 </div>
                 <div>
-                  <label className="form-label">Stadt *</label>
-                  <input {...register('city')} className="form-input" />
+                  <label htmlFor="city" className="form-label">Stadt *</label>
+                  <input 
+                    id="city"
+                    {...register('city')} 
+                    className="form-input"
+                    aria-invalid={!!errors.city}
+                  />
                   {errors.city && (
-                    <p className="text-red-400 text-sm mt-1">{errors.city.message}</p>
+                    <p className="text-red-400 text-sm mt-1" role="alert">{errors.city.message}</p>
                   )}
                 </div>
               </div>
@@ -192,42 +274,57 @@ export default function ALGPage() {
               <h2 className="text-2xl font-semibold mb-6">Beschäftigungsinformationen</h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="form-label">Letzter Arbeitgeber *</label>
-                  <input {...register('lastEmployer')} className="form-input" />
+                  <label htmlFor="lastEmployer" className="form-label">Letzter Arbeitgeber *</label>
+                  <input 
+                    id="lastEmployer"
+                    {...register('lastEmployer')} 
+                    className="form-input"
+                    aria-invalid={!!errors.lastEmployer}
+                  />
                   {errors.lastEmployer && (
-                    <p className="text-red-400 text-sm mt-1">{errors.lastEmployer.message}</p>
+                    <p className="text-red-400 text-sm mt-1" role="alert">{errors.lastEmployer.message}</p>
                   )}
                 </div>
                 <div>
-                  <label className="form-label">Ende des Arbeitsverhältnisses *</label>
-                  <input {...register('employmentEnd')} type="date" className="form-input" />
+                  <label htmlFor="employmentEnd" className="form-label">Ende des Arbeitsverhältnisses *</label>
+                  <input 
+                    id="employmentEnd"
+                    {...register('employmentEnd')} 
+                    type="date" 
+                    className="form-input"
+                    aria-invalid={!!errors.employmentEnd}
+                  />
                   {errors.employmentEnd && (
-                    <p className="text-red-400 text-sm mt-1">{errors.employmentEnd.message}</p>
+                    <p className="text-red-400 text-sm mt-1" role="alert">{errors.employmentEnd.message}</p>
                   )}
                 </div>
                 <div className="md:col-span-2">
-                  <label className="form-label">Grund der Beendigung *</label>
+                  <label htmlFor="reasonForTermination" className="form-label">Grund der Beendigung *</label>
                   <textarea
+                    id="reasonForTermination"
                     {...register('reasonForTermination')}
                     rows={3}
                     className="form-input"
+                    aria-invalid={!!errors.reasonForTermination}
                   />
                   {errors.reasonForTermination && (
-                    <p className="text-red-400 text-sm mt-1">
+                    <p className="text-red-400 text-sm mt-1" role="alert">
                       {errors.reasonForTermination.message}
                     </p>
                   )}
                 </div>
                 <div>
-                  <label className="form-label">Letztes Monatseinkommen (Brutto) *</label>
+                  <label htmlFor="monthlyIncome" className="form-label">Letztes Monatseinkommen (Brutto) *</label>
                   <input
+                    id="monthlyIncome"
                     {...register('monthlyIncome')}
                     type="number"
                     step="0.01"
                     className="form-input"
+                    aria-invalid={!!errors.monthlyIncome}
                   />
                   {errors.monthlyIncome && (
-                    <p className="text-red-400 text-sm mt-1">{errors.monthlyIncome.message}</p>
+                    <p className="text-red-400 text-sm mt-1" role="alert">{errors.monthlyIncome.message}</p>
                   )}
                 </div>
               </div>
@@ -238,30 +335,48 @@ export default function ALGPage() {
               <h2 className="text-2xl font-semibold mb-6">Bankverbindung</h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="form-label">IBAN *</label>
+                  <label htmlFor="iban" className="form-label">IBAN *</label>
                   <input
+                    id="iban"
                     {...register('iban')}
                     placeholder="DE00000000000000000000"
                     className="form-input"
+                    aria-invalid={!!errors.iban}
                   />
                   {errors.iban && (
-                    <p className="text-red-400 text-sm mt-1">{errors.iban.message}</p>
+                    <p className="text-red-400 text-sm mt-1" role="alert">{errors.iban.message}</p>
                   )}
                 </div>
                 <div>
-                  <label className="form-label">BIC *</label>
-                  <input {...register('bic')} className="form-input" />
+                  <label htmlFor="bic" className="form-label">BIC *</label>
+                  <input 
+                    id="bic"
+                    {...register('bic')} 
+                    className="form-input"
+                    aria-invalid={!!errors.bic}
+                  />
                   {errors.bic && (
-                    <p className="text-red-400 text-sm mt-1">{errors.bic.message}</p>
+                    <p className="text-red-400 text-sm mt-1" role="alert">{errors.bic.message}</p>
                   )}
                 </div>
               </div>
             </div>
 
+            {/* File Upload */}
+            <div className="glass-effect p-8 rounded-2xl">
+              <h2 className="text-2xl font-semibold mb-6">Dokumente</h2>
+              <FileUpload 
+                onFilesSelected={setUploadedFiles}
+                maxFiles={5}
+                maxSizeMB={10}
+                acceptedTypes={['application/pdf', 'image/jpeg', 'image/png']}
+              />
+            </div>
+
             {/* Digital Signature */}
             <div className="glass-effect p-8 rounded-2xl">
               <h2 className="text-2xl font-semibold mb-6">Digitale Unterschrift</h2>
-              <SignaturePad onSave={setSignature} />
+              <SignaturePad onSave={setSignature} required />
             </div>
 
             {/* GDPR Consent */}
@@ -273,8 +388,9 @@ export default function ALGPage() {
                     {...register('gdprConsent')}
                     type="checkbox"
                     className="mt-1 w-5 h-5 rounded border-gray-300"
+                    aria-describedby="gdpr-description"
                   />
-                  <span className="text-sm text-gray-300">
+                  <span id="gdpr-description" className="text-sm text-gray-300">
                     Ich stimme der Verarbeitung meiner personenbezogenen Daten gemäß der{' '}
                     <a href="/legal/datenschutz" className="text-blue-400 hover:underline">
                       Datenschutzerklärung
@@ -283,7 +399,7 @@ export default function ALGPage() {
                   </span>
                 </label>
                 {errors.gdprConsent && (
-                  <p className="text-red-400 text-sm">{errors.gdprConsent.message}</p>
+                  <p className="text-red-400 text-sm" role="alert">{errors.gdprConsent.message}</p>
                 )}
 
                 <label className="flex items-start space-x-3">
@@ -300,21 +416,40 @@ export default function ALGPage() {
               </div>
             </div>
 
-            {/* Submit Button */}
-            <div className="flex justify-center">
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                type="button"
+                onClick={() => setShowWhatsApp(true)}
+                className="button-secondary px-8 py-4 text-lg flex items-center justify-center"
+              >
+                <svg className="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.149-.67.149-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                </svg>
+                WhatsApp-Beratung
+              </button>
+              
               <button
                 type="submit"
                 disabled={isSubmitting}
                 className="button-primary px-12 py-4 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                aria-busy={isSubmitting}
               >
                 {isSubmitting ? 'Wird eingereicht...' : 'Antrag einreichen'}
               </button>
             </div>
           </form>
         </motion.div>
-      </div>
+      </main>
 
       <Footer />
+      
+      {/* WhatsApp Modal */}
+      <WhatsAppModal 
+        isOpen={showWhatsApp}
+        onClose={() => setShowWhatsApp(false)}
+        message="Hallo, ich benötige Hilfe beim ALG-Antrag"
+      />
     </div>
   )
 }
