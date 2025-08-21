@@ -166,3 +166,5 @@ const Services: React.FC = () => {
     </section>
   )
 }
+
+export default Services

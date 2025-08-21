@@ -70,8 +70,6 @@ const SignaturePad: React.FC<SignaturePadProps> = ({ onSave, required = false })
               canvasProps={{
                 className: 'w-full h-40 bg-white/5 rounded-lg cursor-crosshair',
                 style: { touchAction: 'none' },
-                'data-testid': 'signature-pad',
-                'aria-label': 'Zeichnen Sie hier Ihre Unterschrift',
                 id: 'signature-canvas',
               }}
               backgroundColor="rgba(255, 255, 255, 0.05)"

@@ -43,8 +43,19 @@ function HologramText() {
   return (
     <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
       <Center>
-        <mesh ref={meshRef}>
-          <textGeometry args={['JobCoach', { size: 1.5, height: 0.3 }]} />
+        <Text3D
+          ref={meshRef}
+          font="/fonts/helvetiker_regular.typeface.json"
+          size={1.5}
+          height={0.3}
+          curveSegments={12}
+          bevelEnabled
+          bevelThickness={0.02}
+          bevelSize={0.02}
+          bevelOffset={0}
+          bevelSegments={5}
+        >
+          JobCoach
           <meshStandardMaterial
             ref={materialRef}
             color="#3B82F6"
@@ -53,7 +64,7 @@ function HologramText() {
             roughness={0.2}
             metalness={0.8}
           />
-        </mesh>
+        </Text3D>
       </Center>
     </Float>
   )
