@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Application {
+  id            String   @id @default(cuid())
+  type          ApplicationType
+  status        ApplicationStatus @default(PENDING)
+  
+  // Personal Data
+  firstName     String
+  lastName      String
+  email         String
+  phone         String
+  dateOfBirth   DateTime
+  address       String
+  city          String
+  postalCode    String
+  
+  // Form specific data (JSON)
+  formData      Json
+  
+  // Signature
+  signature     String?  // Base64 encoded signature image
+  signedAt      DateTime?
+  
+  // GDPR
+  gdprConsent   Boolean  @default(false)
+  gdprConsentAt DateTime?
+  
+  // Timestamps
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  expiresAt     DateTime // Auto-delete after this date
+  
+  // Relations
+  documents     Document[]
+  
+  @@index([email])
+  @@index([status])
+  @@index([expiresAt])
+}
+
+model Document {
+  id            String   @id @default(cuid())
+  applicationId String
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  
+  fileName      String
+  fileType      String
+  fileSize      Int
+  filePath      String
+  
+  createdAt     DateTime @default(now())
+  
+  @@index([applicationId])
+}
+
+enum ApplicationType {
+  ALG           // Arbeitslosengeld
+  KINDERGELD    // Kindergeld
+  WOHNGELD      // Wohngeld
+}
+
+enum ApplicationStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
