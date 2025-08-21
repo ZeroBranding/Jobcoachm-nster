@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO Meta Tags -->
+    <title>Sozialleistungs-Assistent - Ihre digitale Hilfe für Bürgergeld, Wohngeld & mehr</title>
+    <meta name="description" content="Kostenlose Unterstützung bei Anträgen für Bürgergeld, Wohngeld, Kindergeld und Elterngeld. DSGVO-konform, barrierefrei und mit modernster 3D-Technologie.">
+    <meta name="keywords" content="Bürgergeld, Wohngeld, Kindergeld, Elterngeld, Sozialleistungen, Antragshilfe, kostenlos, barrierefrei">
+    <meta name="author" content="Sozialleistungs-Assistent Team">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://sozialleistungs-assistent.de/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sozialleistungs-assistent.de/">
+    <meta property="og:title" content="Sozialleistungs-Assistent - Digitale Antragshilfe">
+    <meta property="og:description" content="Kostenlose Unterstützung bei Sozialleistungsanträgen">
+    <meta property="og:image" content="/assets/img/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://sozialleistungs-assistent.de/">
+    <meta property="twitter:title" content="Sozialleistungs-Assistent">
+    <meta property="twitter:description" content="Kostenlose Unterstützung bei Sozialleistungsanträgen">
+    <meta property="twitter:image" content="/assets/img/twitter-image.jpg">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1a73e8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <!-- Preconnect and DNS Prefetch -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    
+    <!-- Critical CSS -->
+    <style id="critical-css">
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #34a853;
+            --accent-color: #ea4335;
+            --text-primary: #202124;
+            --text-secondary: #5f6368;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --border-color: #dadce0;
+            --shadow-sm: 0 1px 2px 0 rgba(60,64,67,0.3);
+            --shadow-md: 0 2px 6px 2px rgba(60,64,67,0.15);
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            --spacing-unit: 8px;
+            --max-width: 1200px;
+            --border-radius: 8px;
+            --transition-speed: 200ms;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-primary: #e8eaed;
+                --text-secondary: #9aa0a6;
+                --bg-primary: #202124;
+                --bg-secondary: #292a2d;
+                --border-color: #5f6368;
+            }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            font-family: var(--font-sans);
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+            border-radius: 0 0 4px 0;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+        
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 300ms ease-out;
+        }
+        
+        .loading-spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--border-color);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+    
+    <!-- Async CSS -->
+    <link rel="preload" href="/assets/app.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/assets/app.css"></noscript>
+    
+    <!-- Fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Sozialleistungs-Assistent",
+        "url": "https://sozialleistungs-assistent.de",
+        "description": "Digitale Unterstützung bei Sozialleistungsanträgen",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "EUR"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "1250"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen" role="status" aria-live="polite">
+        <div class="loading-spinner" aria-label="Seite wird geladen"></div>
+    </div>
+    
+    <!-- Skip Links -->
+    <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+    <a href="#main-nav" class="skip-link">Zur Navigation springen</a>
+    <a href="#contact-form" class="skip-link">Zum Kontaktformular springen</a>
+    
+    <!-- Cookie Consent Banner -->
+    <div id="consent-banner" class="consent-banner" role="dialog" aria-labelledby="consent-title" aria-describedby="consent-desc" hidden>
+        <div class="consent-content">
+            <h2 id="consent-title">Cookie-Einstellungen</h2>
+            <p id="consent-desc">Wir verwenden Cookies, um Ihre Erfahrung zu verbessern. Bitte wählen Sie Ihre Präferenzen:</p>
+            <div class="consent-categories">
+                <label class="consent-category">
+                    <input type="checkbox" id="consent-essential" checked disabled>
+                    <span>Essenzielle Cookies (Erforderlich)</span>
+                </label>
+                <label class="consent-category">
+                    <input type="checkbox" id="consent-functional">
+                    <span>Funktionale Cookies</span>
+                </label>
+                <label class="consent-category">
+                    <input type="checkbox" id="consent-analytics">
+                    <span>Analyse-Cookies</span>
+                </label>
+            </div>
+            <div class="consent-actions">
+                <button id="consent-accept-all" class="btn btn-primary">Alle akzeptieren</button>
+                <button id="consent-accept-selected" class="btn btn-secondary">Auswahl speichern</button>
+                <button id="consent-reject-all" class="btn btn-ghost">Nur essenzielle</button>
+            </div>
+            <a href="/datenschutz" class="consent-link">Datenschutzerklärung</a>
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <header class="site-header" role="banner">
+        <nav id="main-nav" class="main-nav" role="navigation" aria-label="Hauptnavigation">
+            <div class="nav-container">
+                <a href="/" class="logo" aria-label="Sozialleistungs-Assistent Startseite">
+                    <svg class="logo-icon" width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
+                        <circle cx="16" cy="16" r="14" fill="var(--primary-color)"/>
+                        <path d="M16 8v8l6 6" stroke="white" stroke-width="2" fill="none"/>
+                    </svg>
+                    <span class="logo-text">SozialAssist</span>
+                </a>
+                
+                <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Menü öffnen">
+                    <span class="nav-toggle-line"></span>
+                    <span class="nav-toggle-line"></span>
+                    <span class="nav-toggle-line"></span>
+                </button>
+                
+                <ul id="navMenu" class="nav-menu">
+                    <li><a href="#leistungen">Leistungen</a></li>
+                    <li><a href="#so-funktionierts">So funktioniert's</a></li>
+                    <li><a href="#rechner">Rechner</a></li>
+                    <li><a href="#kontakt">Kontakt</a></li>
+                    <li><a href="/leichte-sprache" lang="de-LS">Leichte Sprache</a></li>
+                </ul>
+                
+                <div class="nav-actions">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Farbschema wechseln">
+                        <svg class="icon-light" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+                            <circle cx="10" cy="10" r="5" fill="currentColor"/>
+                            <path d="M10 0v4M10 16v4M0 10h4M16 10h4" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        <svg class="icon-dark" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" hidden>
+                            <path d="M10 2a8 8 0 108 8c-4 0-8-4-8-8z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                    <a href="#contact-form" class="btn btn-primary nav-cta">Jetzt starten</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Main Content -->
+    <main id="main-content" role="main">
+        <!-- Hero Section with 3D -->
+        <section class="hero-section" aria-labelledby="hero-title">
+            <div class="hero-3d-container" id="hero3d" aria-hidden="true"></div>
+            <div class="hero-content">
+                <h1 id="hero-title" class="hero-title">
+                    <span class="hero-title-line">Ihr digitaler Helfer für</span>
+                    <span class="hero-title-highlight">Sozialleistungen</span>
+                </h1>
+                <p class="hero-description">
+                    Wir unterstützen Sie kostenlos bei Anträgen für Bürgergeld, Wohngeld, Kindergeld und Elterngeld. 
+                    Einfach, sicher und barrierefrei.
+                </p>
+                <div class="hero-actions">
+                    <a href="#contact-form" class="btn btn-primary btn-large">
+                        <span>Kostenlos beraten lassen</span>
+                        <svg class="btn-icon" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+                            <path d="M5 10h10m-5-5l5 5-5 5" stroke="currentColor" stroke-width="2" fill="none"/>
+                        </svg>
+                    </a>
+                    <a href="#so-funktionierts" class="btn btn-secondary btn-large">
+                        <span>So funktioniert's</span>
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-value">10.000+</span>
+                        <span class="stat-label">Erfolgreiche Anträge</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">98%</span>
+                        <span class="stat-label">Zufriedenheit</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">24h</span>
+                        <span class="stat-label">Antwortzeit</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Services Section -->
+        <section id="leistungen" class="services-section" aria-labelledby="services-title">
+            <div class="container">
+                <h2 id="services-title" class="section-title">Unsere Leistungen</h2>
+                <p class="section-description">Wir helfen Ihnen bei allen wichtigen Sozialleistungen</p>
+                
+                <div class="services-grid">
+                    <article class="service-card" data-service="buergergeld">
+                        <div class="service-icon">
+                            <svg width="48" height="48" viewBox="0 0 48 48" aria-hidden="true">
+                                <circle cx="24" cy="24" r="20" fill="var(--primary-color)" opacity="0.1"/>
+                                <path d="M24 12v12l8 8" stroke="var(--primary-color)" stroke-width="2" fill="none"/>
+                            </svg>
+                        </div>
+                        <h3 class="service-title">Bürgergeld</h3>
+                        <p class="service-description">Unterstützung bei der Beantragung von Bürgergeld (ehemals Hartz IV)</p>
+                        <ul class="service-features">
+                            <li>Antragsvorprüfung</li>
+                            <li>Dokumenten-Check</li>
+                            <li>Formular-Ausfüllhilfe</li>
+                        </ul>
+                        <button class="btn btn-ghost service-cta" data-modal="buergergeld">Mehr erfahren</button>
+                    </article>
+                    
+                    <article class="service-card" data-service="wohngeld">
+                        <div class="service-icon">
+                            <svg width="48" height="48" viewBox="0 0 48 48" aria-hidden="true">
+                                <rect x="12" y="20" width="24" height="20" fill="var(--secondary-color)" opacity="0.1"/>
+                                <path d="M12 24l12-12l12 12" stroke="var(--secondary-color)" stroke-width="2" fill="none"/>
+                            </svg>
+                        </div>
+                        <h3 class="service-title">Wohngeld</h3>
+                        <p class="service-description">Berechnung und Beantragung von Wohngeld</p>
+                        <ul class="service-features">
+                            <li>Wohngeldrechner</li>
+                            <li>Anspruchsprüfung</li>
+                            <li>Antragsstellung</li>
+                        </ul>
+                        <button class="btn btn-ghost service-cta" data-modal="wohngeld">Mehr erfahren</button>
+                    </article>
+                    
+                    <article class="service-card" data-service="kindergeld">
+                        <div class="service-icon">
+                            <svg width="48" height="48" viewBox="0 0 48 48" aria-hidden="true">
+                                <circle cx="24" cy="16" r="8" fill="var(--accent-color)" opacity="0.1"/>
+                                <circle cx="16" cy="32" r="6" fill="var(--accent-color)" opacity="0.1"/>
+                                <circle cx="32" cy="32" r="6" fill="var(--accent-color)" opacity="0.1"/>
+                            </svg>
+                        </div>
+                        <h3 class="service-title">Kindergeld</h3>
+                        <p class="service-description">Hilfe bei Kindergeld und Kinderzuschlag</p>
+                        <ul class="service-features">
+                            <li>Erstantrag</li>
+                            <li>Änderungsmitteilungen</li>
+                            <li>Kinderzuschlag-Check</li>
+                        </ul>
+                        <button class="btn btn-ghost service-cta" data-modal="kindergeld">Mehr erfahren</button>
+                    </article>
+                    
+                    <article class="service-card" data-service="elterngeld">
+                        <div class="service-icon">
+                            <svg width="48" height="48" viewBox="0 0 48 48" aria-hidden="true">
+                                <path d="M24 8c8 0 16 8 16 16s-8 16-16 16" fill="var(--primary-color)" opacity="0.1"/>
+                                <circle cx="24" cy="24" r="4" fill="var(--primary-color)"/>
+                            </svg>
+                        </div>
+                        <h3 class="service-title">Elterngeld</h3>
+                        <p class="service-description">Beratung und Antragstellung für Elterngeld</p>
+                        <ul class="service-features">
+                            <li>Elterngeldrechner</li>
+                            <li>Optimale Aufteilung</li>
+                            <li>ElterngeldPlus-Beratung</li>
+                        </ul>
+                        <button class="btn btn-ghost service-cta" data-modal="elterngeld">Mehr erfahren</button>
+                    </article>
+                </div>
+            </div>
+        </section>
+        
+        <!-- How it Works -->
+        <section id="so-funktionierts" class="how-it-works" aria-labelledby="how-title">
+            <div class="container">
+                <h2 id="how-title" class="section-title">So funktioniert's</h2>
+                <p class="section-description">In nur 3 Schritten zu Ihrer Sozialleistung</p>
+                
+                <ol class="steps-list">
+                    <li class="step" data-step="1">
+                        <div class="step-number" aria-hidden="true">1</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Anspruch prüfen</h3>
+                            <p class="step-description">Beantworten Sie einige Fragen zu Ihrer Situation. Unser System prüft Ihren Anspruch.</p>
+                        </div>
+                    </li>
+                    <li class="step" data-step="2">
+                        <div class="step-number" aria-hidden="true">2</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Unterlagen hochladen</h3>
+                            <p class="step-description">Laden Sie die benötigten Dokumente sicher hoch. Wir prüfen die Vollständigkeit.</p>
+                        </div>
+                    </li>
+                    <li class="step" data-step="3">
+                        <div class="step-number" aria-hidden="true">3</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Antrag erhalten</h3>
+                            <p class="step-description">Sie erhalten den fertig ausgefüllten Antrag als PDF zum Download oder Versand.</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+        
+        <!-- Calculator Section -->
+        <section id="rechner" class="calculator-section" aria-labelledby="calc-title">
+            <div class="container">
+                <h2 id="calc-title" class="section-title">Schnellrechner</h2>
+                <p class="section-description">Prüfen Sie unverbindlich Ihren möglichen Anspruch</p>
+                
+                <form id="quickCalculator" class="calculator-form" novalidate>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="calc-household" class="form-label">Haushaltsgröße</label>
+                            <select id="calc-household" name="haushaltsgroesse" class="form-select" required aria-required="true">
+                                <option value="">Bitte wählen</option>
+                                <option value="1">1 Person</option>
+                                <option value="2">2 Personen</option>
+                                <option value="3">3 Personen</option>
+                                <option value="4">4 Personen</option>
+                                <option value="5">5+ Personen</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="calc-income" class="form-label">Monatliches Nettoeinkommen</label>
+                            <input type="number" id="calc-income" name="netto_monat" class="form-input" 
+                                   min="0" step="100" required aria-required="true" 
+                                   aria-describedby="income-help">
+                            <small id="income-help" class="form-help">Gesamtes Haushaltseinkommen nach Abzügen</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="calc-rent" class="form-label">Kaltmiete</label>
+                            <input type="number" id="calc-rent" name="kaltmiete" class="form-input" 
+                                   min="0" step="50" required aria-required="true">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="calc-utilities" class="form-label">Nebenkosten</label>
+                            <input type="number" id="calc-utilities" name="nebenkosten" class="form-input" 
+                                   min="0" step="10" required aria-required="true">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="calc-zip" class="form-label">Postleitzahl</label>
+                            <input type="text" id="calc-zip" name="plz" class="form-input" 
+                                   pattern="[0-9]{5}" maxlength="5" required aria-required="true"
+                                   aria-describedby="zip-help">
+                            <small id="zip-help" class="form-help">Für regionale Berechnungen</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-large">
+                            <span>Anspruch berechnen</span>
+                        </button>
+                        <button type="reset" class="btn btn-ghost">Zurücksetzen</button>
+                    </div>
+                </form>
+                
+                <div id="calcResult" class="calc-result" hidden aria-live="polite" aria-atomic="true">
+                    <h3 class="calc-result-title">Ihr voraussichtlicher Anspruch</h3>
+                    <div class="calc-result-content"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Form -->
+        <section id="kontakt" class="contact-section" aria-labelledby="contact-title">
+            <div class="container">
+                <h2 id="contact-title" class="section-title">Kontaktieren Sie uns</h2>
+                <p class="section-description">Wir helfen Ihnen gerne weiter</p>
+                
+                <form id="contact-form" class="contact-form" novalidate>
+                    <!-- CSRF Token (would be generated server-side) -->
+                    <input type="hidden" name="csrf_token" value="GENERATED_TOKEN">
+                    
+                    <!-- Error Summary (for accessibility) -->
+                    <div id="form-errors" class="form-errors" role="alert" aria-live="assertive" hidden></div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="contact-name" class="form-label">
+                                Vollständiger Name <span class="required" aria-label="Pflichtfeld">*</span>
+                            </label>
+                            <input type="text" id="contact-name" name="name" class="form-input" 
+                                   required aria-required="true" minlength="2"
+                                   aria-describedby="name-error">
+                            <span id="name-error" class="form-error" role="alert" hidden></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact-email" class="form-label">
+                                E-Mail-Adresse <span class="required" aria-label="Pflichtfeld">*</span>
+                            </label>
+                            <input type="email" id="contact-email" name="email" class="form-input" 
+                                   required aria-required="true"
+                                   aria-describedby="email-error">
+                            <span id="email-error" class="form-error" role="alert" hidden></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact-phone" class="form-label">Telefonnummer</label>
+                            <input type="tel" id="contact-phone" name="phone" class="form-input" 
+                                   pattern="[+0-9\s\-\(\)]{6,}"
+                                   aria-describedby="phone-help">
+                            <small id="phone-help" class="form-help">Optional, für Rückfragen</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact-benefit" class="form-label">
+                                Art der Leistung <span class="required" aria-label="Pflichtfeld">*</span>
+                            </label>
+                            <select id="contact-benefit" name="benefit" class="form-select" 
+                                    required aria-required="true"
+                                    aria-describedby="benefit-error">
+                                <option value="">Bitte wählen</option>
+                                <option value="buergergeld">Bürgergeld</option>
+                                <option value="wohngeld">Wohngeld</option>
+                                <option value="kindergeld">Kindergeld</option>
+                                <option value="elterngeld">Elterngeld</option>
+                                <option value="andere">Andere</option>
+                            </select>
+                            <span id="benefit-error" class="form-error" role="alert" hidden></span>
+                        </div>
+                        
+                        <div class="form-group form-group-full">
+                            <label for="contact-message" class="form-label">
+                                Ihre Nachricht <span class="required" aria-label="Pflichtfeld">*</span>
+                            </label>
+                            <textarea id="contact-message" name="message" class="form-textarea" 
+                                      rows="5" required aria-required="true" minlength="20"
+                                      aria-describedby="message-error message-help"></textarea>
+                            <small id="message-help" class="form-help">Beschreiben Sie Ihr Anliegen (mind. 20 Zeichen)</small>
+                            <span id="message-error" class="form-error" role="alert" hidden></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact-priority" class="form-label">Dringlichkeit</label>
+                            <select id="contact-priority" name="priority" class="form-select">
+                                <option value="normal">Normal</option>
+                                <option value="hoch">Hoch</option>
+                                <option value="sehr-hoch">Sehr hoch</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact-upload" class="form-label">Dokument hochladen</label>
+                            <input type="file" id="contact-upload" name="poa_file" class="form-file" 
+                                   accept=".pdf,.jpg,.jpeg,.png"
+                                   aria-describedby="upload-help">
+                            <small id="upload-help" class="form-help">PDF, JPG oder PNG, max. 10 MB</small>
+                        </div>
+                    </div>
+                    
+                    <!-- Consent Checkboxes -->
+                    <div class="form-consents">
+                        <label class="form-checkbox">
+                            <input type="checkbox" name="consent_privacy" required aria-required="true">
+                            <span>Ich habe die <a href="/datenschutz" target="_blank">Datenschutzerklärung</a> gelesen und akzeptiere sie. <span class="required">*</span></span>
+                        </label>
+                        
+                        <label class="form-checkbox">
+                            <input type="checkbox" name="consent_contact">
+                            <span>Ich möchte über Updates und Neuigkeiten informiert werden.</span>
+                        </label>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-large">
+                            <span>Nachricht senden</span>
+                        </button>
+                        <button type="reset" class="btn btn-ghost">Formular zurücksetzen</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3 class="footer-title">Über uns</h3>
+                    <p class="footer-text">
+                        Wir sind Ihr digitaler Partner für Sozialleistungen. 
+                        Kostenlos, sicher und barrierefrei.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook" class="social-link">
+                            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" fill="currentColor"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Twitter" class="social-link">
+                            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" fill="currentColor"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Leistungen</h3>
+                    <ul class="footer-links">
+                        <li><a href="/buergergeld">Bürgergeld</a></li>
+                        <li><a href="/wohngeld">Wohngeld</a></li>
+                        <li><a href="/kindergeld">Kindergeld</a></li>
+                        <li><a href="/elterngeld">Elterngeld</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Rechtliches</h3>
+                    <ul class="footer-links">
+                        <li><a href="/impressum">Impressum</a></li>
+                        <li><a href="/datenschutz">Datenschutz</a></li>
+                        <li><a href="/agb">AGB</a></li>
+                        <li><a href="/widerruf">Widerrufsrecht</a></li>
+                        <li><button id="cookieSettings" class="link-button">Cookie-Einstellungen</button></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">Kontakt</h3>
+                    <address class="footer-contact">
+                        <p>Sozialleistungs-Assistent GmbH</p>
+                        <p>Musterstraße 123</p>
+                        <p>12345 Berlin</p>
+                        <p><a href="tel:+4930123456">030 123456</a></p>
+                        <p><a href="mailto:info@sozialassist.de">info@sozialassist.de</a></p>
+                    </address>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sozialleistungs-Assistent. Alle Rechte vorbehalten.</p>
+                <p class="footer-disclaimer">
+                    Keine Rechtsberatung. Wir bieten allgemeine Informationen und Unterstützung.
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Modals Container -->
+    <div id="modals-container" aria-hidden="true"></div>
+    
+    <!-- Scripts -->
+    <script type="module" src="/assets/app.js"></script>
+    <script type="module" src="/assets/3d.js" defer></script>
+</body>
+</html>

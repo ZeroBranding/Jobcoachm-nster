@@ -1,0 +1,67 @@
+{
+  "name": "sozialleistungs-assistent",
+  "version": "1.0.0",
+  "description": "Professioneller Sozialleistungs-Assistent mit 3D-UI, DSGVO-konform und barrierefrei",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "playwright test",
+    "test:a11y": "npm run test -- --grep @a11y",
+    "test:security": "npm run test -- --grep @security",
+    "lighthouse": "lighthouse http://localhost:5173 --output json --output-path ./tests/lighthouse-report.json",
+    "lint": "eslint src --ext .js,.jsx",
+    "format": "prettier --write \"src/**/*.{js,jsx,css,html}\"",
+    "analyze": "vite-bundle-visualizer"
+  },
+  "dependencies": {
+    "three": "^0.160.0",
+    "gsap": "^3.12.4",
+    "lottie-web": "^5.12.2",
+    "@motionone/dom": "^10.17.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.10",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-pwa": "^0.17.4",
+    "@vitejs/plugin-legacy": "^5.2.0",
+    "terser": "^5.26.0",
+    "@playwright/test": "^1.40.1",
+    "axe-core": "^4.8.3",
+    "axe-playwright": "^1.2.3",
+    "lighthouse": "^11.4.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1",
+    "vite-bundle-visualizer": "^0.11.0",
+    "@types/three": "^0.160.0"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "not dead",
+    "> 0.2%",
+    "not op_mini all"
+  ],
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "keywords": [
+    "sozialleistungen",
+    "bürgergeld",
+    "wohngeld",
+    "kindergeld",
+    "elterngeld",
+    "dsgvo",
+    "wcag",
+    "barrierefreiheit",
+    "3d-ui",
+    "hologramm"
+  ],
+  "author": "Sozialleistungs-Assistent Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/sozialleistungs-assistent.git"
+  }
+}
