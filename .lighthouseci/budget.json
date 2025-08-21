@@ -1,0 +1,14 @@
+[
+  {
+    "resourceSizes": [
+      { "resourceType": "total", "budget": 160 },
+      { "resourceType": "script", "budget": 130 }
+    ],
+    "timings": [
+      { "metric": "interactive", "budget": 4000 },
+      { "metric": "first-contentful-paint", "budget": 2500 },
+      { "metric": "total-blocking-time", "budget": 200 },
+      { "metric": "cumulative-layout-shift", "budget": 0.1 }
+    ]
+  }
+]
