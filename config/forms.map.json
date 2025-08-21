@@ -1,0 +1,229 @@
+{
+  "contact_form": {
+    "form_id": "contact-form",
+    "fields": {
+      "name": {
+        "html_name": "name",
+        "type": "text",
+        "required": true,
+        "validation": {
+          "minlength": 2,
+          "maxlength": 100,
+          "pattern": "^[a-zA-ZäöüÄÖÜß\\s\\-\\.]+$"
+        },
+        "error_messages": {
+          "required": "Bitte geben Sie Ihren vollständigen Namen ein.",
+          "minlength": "Der Name muss mindestens 2 Zeichen lang sein.",
+          "pattern": "Bitte verwenden Sie nur Buchstaben, Bindestriche und Punkte."
+        },
+        "backend_key": "user_full_name"
+      },
+      "email": {
+        "html_name": "email",
+        "type": "email",
+        "required": true,
+        "validation": {
+          "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"
+        },
+        "error_messages": {
+          "required": "Bitte geben Sie Ihre E-Mail-Adresse ein.",
+          "pattern": "Bitte geben Sie eine gültige E-Mail-Adresse ein."
+        },
+        "backend_key": "user_email"
+      },
+      "phone": {
+        "html_name": "phone",
+        "type": "tel",
+        "required": false,
+        "validation": {
+          "pattern": "^[+0-9\\s\\(\\)\\-]{6,}$",
+          "minlength": 6
+        },
+        "error_messages": {
+          "pattern": "Bitte geben Sie eine gültige Telefonnummer ein.",
+          "minlength": "Die Telefonnummer muss mindestens 6 Zeichen lang sein."
+        },
+        "backend_key": "user_phone"
+      },
+      "benefit_type": {
+        "html_name": "benefitType",
+        "type": "select",
+        "required": true,
+        "options": [
+          {"value": "buergergeld", "label": "Bürgergeld"},
+          {"value": "wohngeld", "label": "Wohngeld"},
+          {"value": "kindergeld", "label": "Kindergeld"},
+          {"value": "elterngeld", "label": "Elterngeld"},
+          {"value": "other", "label": "Sonstiges"}
+        ],
+        "error_messages": {
+          "required": "Bitte wählen Sie die Art der Leistung aus."
+        },
+        "backend_key": "benefit_type"
+      },
+      "message": {
+        "html_name": "message",
+        "type": "textarea",
+        "required": true,
+        "validation": {
+          "minlength": 20,
+          "maxlength": 2000
+        },
+        "error_messages": {
+          "required": "Bitte beschreiben Sie Ihre Situation.",
+          "minlength": "Bitte beschreiben Sie Ihre Situation ausführlicher (mindestens 20 Zeichen).",
+          "maxlength": "Die Beschreibung darf maximal 2000 Zeichen lang sein."
+        },
+        "backend_key": "user_message"
+      },
+      "priority": {
+        "html_name": "priority",
+        "type": "select",
+        "required": false,
+        "options": [
+          {"value": "normal", "label": "Normal"},
+          {"value": "urgent", "label": "Dringend"},
+          {"value": "very-urgent", "label": "Sehr dringend"}
+        ],
+        "backend_key": "priority_level"
+      },
+      "documents": {
+        "html_name": "documents",
+        "type": "file",
+        "required": false,
+        "validation": {
+          "max_files": 5,
+          "max_size_mb": 10,
+          "allowed_types": ["application/pdf", "image/jpeg", "image/png"],
+          "allowed_extensions": [".pdf", ".jpg", ".jpeg", ".png"]
+        },
+        "error_messages": {
+          "max_files": "Sie können maximal 5 Dateien hochladen.",
+          "max_size": "Jede Datei darf maximal 10 MB groß sein.",
+          "file_type": "Nur PDF, JPEG und PNG Dateien sind erlaubt."
+        },
+        "backend_key": "uploaded_documents"
+      },
+      "privacy_consent": {
+        "html_name": "privacyConsent",
+        "type": "checkbox",
+        "required": true,
+        "error_messages": {
+          "required": "Sie müssen der Datenschutzerklärung zustimmen."
+        },
+        "backend_key": "privacy_consent_given"
+      }
+    }
+  },
+  "quick_check_form": {
+    "form_id": "quick-check-form",
+    "fields": {
+      "household_size": {
+        "html_name": "householdSize",
+        "type": "select",
+        "required": true,
+        "options": [
+          {"value": "1", "label": "1 Person"},
+          {"value": "2", "label": "2 Personen"},
+          {"value": "3", "label": "3 Personen"},
+          {"value": "4", "label": "4 Personen"},
+          {"value": "5+", "label": "5 oder mehr Personen"}
+        ],
+        "error_messages": {
+          "required": "Bitte geben Sie die Haushaltsgröße an."
+        },
+        "backend_key": "household_size"
+      },
+      "monthly_income": {
+        "html_name": "monthlyIncome",
+        "type": "number",
+        "required": true,
+        "validation": {
+          "min": 0,
+          "max": 50000,
+          "step": 10
+        },
+        "error_messages": {
+          "required": "Bitte geben Sie Ihr monatliches Nettoeinkommen an.",
+          "min": "Das Einkommen kann nicht negativ sein.",
+          "max": "Bitte geben Sie einen realistischen Wert ein."
+        },
+        "backend_key": "monthly_net_income"
+      },
+      "rent_costs": {
+        "html_name": "rentCosts",
+        "type": "number",
+        "required": true,
+        "validation": {
+          "min": 0,
+          "max": 10000,
+          "step": 10
+        },
+        "error_messages": {
+          "required": "Bitte geben Sie Ihre monatlichen Wohnkosten an.",
+          "min": "Die Wohnkosten können nicht negativ sein.",
+          "max": "Bitte geben Sie einen realistischen Wert ein."
+        },
+        "backend_key": "monthly_rent_costs"
+      },
+      "postal_code": {
+        "html_name": "postalCode",
+        "type": "text",
+        "required": true,
+        "validation": {
+          "pattern": "^[0-9]{5}$",
+          "minlength": 5,
+          "maxlength": 5
+        },
+        "error_messages": {
+          "required": "Bitte geben Sie Ihre Postleitzahl ein.",
+          "pattern": "Bitte geben Sie eine gültige 5-stellige Postleitzahl ein."
+        },
+        "backend_key": "postal_code"
+      }
+    }
+  },
+  "validation_rules": {
+    "csrf_token": {
+      "required": true,
+      "backend_key": "_token"
+    },
+    "honeypot": {
+      "field_name": "website",
+      "should_be_empty": true,
+      "backend_key": "honeypot_check"
+    },
+    "rate_limiting": {
+      "max_submissions_per_hour": 5,
+      "max_submissions_per_day": 20,
+      "ip_based": true
+    },
+    "file_upload": {
+      "scan_for_viruses": true,
+      "check_mime_type": true,
+      "sanitize_filename": true,
+      "max_total_size_mb": 50,
+      "quarantine_suspicious": true
+    }
+  },
+  "api_endpoints": {
+    "contact_form": "/api/contact-form",
+    "quick_check": "/api/quick-check",
+    "file_upload": "/api/upload",
+    "consent_update": "/api/consent",
+    "data_deletion": "/api/delete-data"
+  },
+  "response_codes": {
+    "success": 200,
+    "validation_error": 422,
+    "rate_limit": 429,
+    "server_error": 500,
+    "csrf_error": 403
+  },
+  "error_handling": {
+    "show_generic_error": true,
+    "log_detailed_errors": true,
+    "notify_admin_on_error": true,
+    "retry_failed_submissions": false
+  }
+}
