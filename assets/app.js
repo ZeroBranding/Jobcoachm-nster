@@ -92,10 +92,16 @@ function initConsentUI() {
   return { get: () => current };
 }
 
+function getUrlVariant() {
+  const url = new URL(window.location.href);
+  const v = url.searchParams.get('lang') || url.pathname.includes('leicht') ? 'leicht' : 'plain';
+  return v;
+}
+
 async function initI18n() {
   try {
     const texts = await loadJSON(TEXTS_URL);
-    const state = { variant: 'plain', texts };
+    const state = { variant: getUrlVariant(), texts };
     function render() { applyI18n(state.texts, state.variant); }
     render();
     const btn = document.getElementById('btn-plain-toggle');
@@ -261,6 +267,7 @@ function main() {
   initHeroMotion(consent);
   const modalConsent = initModalConsent();
   initFeatureConsents(modalConsent);
+  const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
 }
 
 document.addEventListener('DOMContentLoaded', main);
