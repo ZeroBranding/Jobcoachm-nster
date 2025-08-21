@@ -1,46 +1,41 @@
-# Jobcoach Münster - Professionelle Hilfe bei Sozialleistungen
+# JobCoach Münster
 
-🚀 **Moderne, barrierefreie und DSGVO-konforme Website** für Beratung bei Bürgergeld, Wohngeld, Kindergeld und anderen Sozialleistungen.
+Vollständige, DSGVO-orientierte Web-App zur Unterstützung bei Online-Anträgen (ALG, Kindergeld, Wohngeld, BAföG).
 
-## ✨ Features
-- **3D/Hologram Effekte** mit Three.js + progressive enhancement
-- **GDPR/TTDSG konform** mit granularem Consent Management  
-- **WCAG 2.2 AA** - vollständig barrierefrei
-- **SEO optimiert** für Top Google Rankings
-- **Leichte Sprache** für bessere Zugänglichkeit
-- **Security Headers** (CSP, HSTS, Permissions-Policy)
-- **Automatische Datenlöschung** nach 90 Tagen
+## Stack
+- Frontend: Next.js 14 + TypeScript + TailwindCSS + Framer Motion + React Three Fiber
+- Backend: Node.js (Express) + PostgreSQL (Prisma ORM)
+- E-Mail: SMTP (Nodemailer)
+- Tests: Jest (API) + Playwright (E2E)
+- CI/CD: GitHub Actions
+- Container: Docker + docker-compose
 
-## 📁 Struktur
-```
-├── index.html              # Hauptseite mit 3D-Effekten
-├── leichte-sprache.html    # Barrierefreie Version
-├── assets/
-│   ├── app.css            # Responsive Design + Dark Mode
-│   ├── app.js             # Consent + Forms + A11y
-│   └── 3d.js              # Three.js Hologram-Effekte
-├── legal/                 # GDPR-Templates (anpassbar)
-└── config/                # Security + Texte
-```
-
-## 🚀 Quick Start
+## Lokales Setup
 ```bash
-# Lokal testen
-python -m http.server 8000
-
-# Dann öffnen: http://localhost:8000
+cp .env.example .env
+npm ci
+npx prisma generate
+npx prisma migrate dev --name init
+npm run dev
 ```
 
-## ⚙️ Vor Deployment
-1. **Legal Templates** anpassen: `[FIRMA]`, `[EMAIL]`, etc. ersetzen
-2. **Security Headers** aus `config/` implementieren  
-3. **SSL Zertifikat** installieren
-4. **Performance testen** (Lighthouse Score 95+)
+Frontend: http://localhost:3000
+Backend: http://localhost:4000
 
-## 🎯 SEO-Ready
-- Structured Data (Schema.org)
-- Open Graph + Twitter Cards
-- Core Web Vitals < 2.5s LCP
-- Mobile-First Design
+## Produktion (Docker)
+```bash
+npm run build && docker-compose up --build
+```
 
-**Disclaimer:** Keine Rechtsberatung - nur allgemeine Informationen und Formularhilfen.
+## Datenschutz & Recht
+- Rechtstexte unter `/app/legal`: AGB, Impressum, Datenschutzerklärung
+- Digitale Signatur via Checkbox im Formular; Datenlöschung nach Auftragsabschluss (Cron-Job)
+
+## Skripte
+- `npm run dev`: Dev-Server Frontend + Backend
+- `npm run build`: Next build + Backend TS build
+- `npm test`: Jest-Tests
+- `npm run test:e2e`: Playwright E2E
+
+## Lizenz
+MIT
