@@ -1,0 +1,80 @@
+# Robots.txt für Dein Jobcoach-Münster
+# Optimiert für maximale SEO-Performance
+
+# Googlebot
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+Sitemap: https://dein-jobcoach-muenster.de/sitemap.xml
+
+# Bingbot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+Sitemap: https://dein-jobcoach-muenster.de/sitemap.xml
+
+# Alle anderen Suchmaschinen
+User-agent: *
+Allow: /
+Crawl-delay: 1
+
+# Wichtige Seiten priorisieren
+Allow: /index.html
+Allow: /leistungen
+Allow: /kontakt
+Allow: /blog/
+Allow: /ueber-uns
+Allow: /anfrage
+
+# Ressourcen erlauben
+Allow: /images/
+Allow: /css/
+Allow: /js/
+Allow: *.css
+Allow: *.js
+Allow: *.jpg
+Allow: *.jpeg
+Allow: *.png
+Allow: *.gif
+Allow: *.svg
+Allow: *.webp
+
+# Admin-Bereiche blockieren
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /cache/
+Disallow: /backup/
+
+# Spezielle Crawler
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: *.jpg
+Allow: *.jpeg
+Allow: *.png
+Allow: *.gif
+Allow: *.webp
+
+User-agent: Googlebot-Mobile
+Allow: /
+
+# Social Media Bots
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+# Sitemap-Verweise
+Sitemap: https://dein-jobcoach-muenster.de/sitemap.xml
+Sitemap: https://dein-jobcoach-muenster.de/sitemap-blog.xml
+Sitemap: https://dein-jobcoach-muenster.de/sitemap-images.xml
