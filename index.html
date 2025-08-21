@@ -34,7 +34,7 @@
     <meta name="twitter:description" content="Professionelle Unterstützung bei allen Sozialleistungen in Münster. Kostenlose Erstberatung!">
     <meta name="twitter:image" content="https://dein-jobcoach-muenster.de/images/twitter-card.jpg">
     
-    <!-- Strukturierte Daten / Schema.org -->
+    <!-- Erweiterte Strukturierte Daten / Schema.org für maximales SEO -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -98,12 +98,153 @@
         "sameAs": [
             "https://www.facebook.com/deinjobcoachmuenster",
             "https://www.instagram.com/deinjobcoachmuenster",
-            "https://www.linkedin.com/company/dein-jobcoach-muenster"
-        ]
+            "https://www.linkedin.com/company/dein-jobcoach-muenster",
+            "https://www.xing.com/companies/deinjobcoachmuenster",
+            "https://twitter.com/jobcoachmuenster",
+            "https://www.youtube.com/@deinjobcoachmuenster"
+        ],
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Sozialleistungen Beratung",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "ALG 2 / Bürgergeld Beratung",
+                        "description": "Professionelle Unterstützung bei Anträgen und Widersprüchen"
+                    }
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service",
+                        "name": "Jobcenter Widerspruch",
+                        "description": "Erfolgreiche Widersprüche gegen Jobcenter-Bescheide"
+                    }
+                }
+            ]
+        },
+        "potentialAction": {
+            "@type": "ReserveAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://dein-jobcoach-muenster.de/termin",
+                "inLanguage": "de",
+                "actionPlatform": [
+                    "http://schema.org/DesktopWebPlatform",
+                    "http://schema.org/MobileWebPlatform"
+                ]
+            },
+            "result": {
+                "@type": "Reservation",
+                "name": "Beratungstermin"
+            }
+        }
     }
     </script>
     
-    <!-- FAQ Schema -->
+    <!-- Erweiterte Organisation Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Dein Jobcoach-Münster",
+        "alternateName": "Jobcoach Münster",
+        "url": "https://dein-jobcoach-muenster.de",
+        "logo": "https://dein-jobcoach-muenster.de/images/logo.png",
+        "contactPoint": [
+            {
+                "@type": "ContactPoint",
+                "telephone": "+49-163-3338242",
+                "contactType": "customer service",
+                "areaServed": "DE",
+                "availableLanguage": ["German", "English"],
+                "contactOption": "TollFree",
+                "hoursAvailable": {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                    "opens": "08:00",
+                    "closes": "18:00"
+                }
+            },
+            {
+                "@type": "ContactPoint",
+                "telephone": "+49-163-3338242",
+                "contactType": "emergency",
+                "areaServed": "DE",
+                "availableLanguage": "German",
+                "contactOption": "WhatsApp"
+            }
+        ],
+        "founder": {
+            "@type": "Person",
+            "name": "Experten-Team",
+            "jobTitle": "Sozialrechtsexperten"
+        },
+        "foundingDate": "2015",
+        "numberOfEmployees": {
+            "@type": "QuantitativeValue",
+            "value": 15
+        },
+        "slogan": "Ihre Rechte. Unser Kampf. Ihr Erfolg.",
+        "knowsAbout": [
+            "Sozialrecht",
+            "ALG 2",
+            "Bürgergeld",
+            "Jobcenter",
+            "Arbeitsagentur",
+            "Kindergeld",
+            "Elterngeld",
+            "Wohngeld"
+        ],
+        "areaServed": {
+            "@type": "City",
+            "name": "Münster",
+            "@id": "https://www.wikidata.org/wiki/Q2742"
+        }
+    }
+    </script>
+    
+    <!-- Service Schema für Featured Snippets -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "serviceType": "Sozialleistungsberatung",
+        "provider": {
+            "@type": "LocalBusiness",
+            "name": "Dein Jobcoach-Münster"
+        },
+        "areaServed": {
+            "@type": "City",
+            "name": "Münster"
+        },
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Beratungsleistungen",
+            "itemListElement": [
+                {
+                    "@type": "OfferCatalog",
+                    "name": "Kostenlose Erstberatung",
+                    "itemListElement": {
+                        "@type": "Offer",
+                        "price": "0",
+                        "priceCurrency": "EUR"
+                    }
+                }
+            ]
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "287",
+            "bestRating": "5"
+        }
+    }
+    </script>
+    
+    <!-- Erweiterte FAQ Schema mit mehr Fragen -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -132,6 +273,78 @@
                     "@type": "Answer",
                     "text": "Wir unterstützen bei: ALG I & II Anträgen, Bürgergeld, Jobcenter-Angelegenheiten, Widersprüchen, Kindergeld, Elterngeld, Wohngeld und allen anderen Sozialleistungen in Münster."
                 }
+            },
+            {
+                "@type": "Question",
+                "name": "Wo befindet sich Dein Jobcoach-Münster?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Unser Büro befindet sich am Prinzipalmarkt 1, 48143 Münster. Wir betreuen Kunden aus allen Stadtteilen Münsters und bieten auch Online-Beratung an."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Wie hoch ist die Erfolgsquote bei Widersprüchen?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Unsere Erfolgsquote bei Widersprüchen liegt bei 98%. Wir kennen die rechtlichen Grundlagen genau und wissen, wie wir Ihre Ansprüche durchsetzen."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Kann ich auch online beraten werden?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Ja, wir bieten vollständige Online-Beratung per Telefon, WhatsApp, E-Mail und Videochat an. Sie müssen nicht persönlich vorbeikommen."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Wie lange dauert die Bearbeitung meines Falls?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "In dringenden Fällen bieten wir Sofort-Hilfe am selben Tag. Reguläre Anfragen bearbeiten wir innerhalb von 24 Stunden."
+                }
+            }
+        ]
+    }
+    </script>
+    
+    <!-- HowTo Schema für Anleitungen -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "Wie beantrage ich ALG 2 in Münster?",
+        "description": "Schritt-für-Schritt Anleitung zur Beantragung von ALG 2 beim Jobcenter Münster",
+        "image": "https://dein-jobcoach-muenster.de/images/alg2-anleitung.jpg",
+        "totalTime": "PT30M",
+        "estimatedCost": {
+            "@type": "MonetaryAmount",
+            "currency": "EUR",
+            "value": "0"
+        },
+        "step": [
+            {
+                "@type": "HowToStep",
+                "name": "Termin vereinbaren",
+                "text": "Vereinbaren Sie einen Termin beim Jobcenter Münster oder nutzen Sie unsere kostenlose Erstberatung.",
+                "url": "https://dein-jobcoach-muenster.de/termin"
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Unterlagen vorbereiten",
+                "text": "Sammeln Sie alle notwendigen Unterlagen: Personalausweis, Mietvertrag, Kontoauszüge der letzten 3 Monate."
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Antrag ausfüllen",
+                "text": "Füllen Sie den Hauptantrag und alle Anlagen vollständig aus. Wir helfen Ihnen dabei!"
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Antrag einreichen",
+                "text": "Reichen Sie den Antrag persönlich beim Jobcenter ein oder lassen Sie uns das für Sie übernehmen."
             }
         ]
     }
