@@ -1,0 +1,82 @@
+# Git Attributes für JobCoach Münster
+
+# Auto-Detection für Sprachen
+*.html linguist-language=HTML
+*.css linguist-language=CSS
+*.js linguist-language=JavaScript
+*.md linguist-language=Markdown
+*.json linguist-language=JSON
+
+# Line Ending Normalisierung
+* text=auto
+
+# Spezifische Dateitypen
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.xml text eol=lf
+*.txt text eol=lf
+
+# Binärdateien
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg text eol=lf
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+
+# Archive
+*.zip binary
+*.tar binary
+*.gz binary
+*.7z binary
+
+# Dokumentation und Legal
+README.md text eol=lf
+CHANGELOG.md text eol=lf
+LICENSE text eol=lf
+legal/*.md text eol=lf
+docs/*.md text eol=lf
+
+# Konfigurationsdateien
+.env* text eol=lf
+*.conf text eol=lf
+*.config.* text eol=lf
+Dockerfile text eol=lf
+docker-compose.yml text eol=lf
+
+# Scripts
+*.sh text eol=lf
+scripts/* text eol=lf
+
+# Git-spezifisch
+.gitignore text eol=lf
+.gitattributes text eol=lf
+
+# GitHub-spezifisch
+.github/* text eol=lf
+
+# Node.js
+package.json text eol=lf
+package-lock.json text eol=lf -diff
+
+# Exclude from language statistics
+test-results/* linguist-generated=true
+node_modules/* linguist-vendored=true
+dist/* linguist-generated=true
+build/* linguist-generated=true
+coverage/* linguist-generated=true
+*.min.js linguist-generated=true
+*.min.css linguist-generated=true
+
+# Large files (Git LFS) - falls benötigt
+# *.psd filter=lfs diff=lfs merge=lfs -text
+# *.ai filter=lfs diff=lfs merge=lfs -text

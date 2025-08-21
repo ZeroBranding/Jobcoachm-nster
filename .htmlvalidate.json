@@ -1,0 +1,59 @@
+{
+  "extends": ["html-validate:recommended"],
+  "rules": {
+    "void-style": "omit",
+    "close-order": "error",
+    "deprecated": "error",
+    "doctype-html": "error",
+    "no-dup-attr": "error",
+    "no-dup-id": "error",
+    "no-missing-references": "error",
+    "script-type": "error",
+    "svg-focusable": "error",
+    "wcag/h30": "error",
+    "wcag/h32": "error",
+    "wcag/h36": "error",
+    "wcag/h37": "error",
+    "wcag/h67": "error",
+    "wcag/h71": "error",
+    
+    "aria-hidden-body": "error",
+    "aria-label-misuse": "error",
+    "aria-required-attr": "error",
+    "aria-required-parent": "error",
+    "empty-heading": "error",
+    "heading-level": "error",
+    "input-missing-label": "error",
+    "missing-doctype": "error",
+    "no-abstract-role": "error",
+    "no-autoplay": "error",
+    "no-implicit-close": "error",
+    "no-redundant-role": "error",
+    "prefer-native-element": "error",
+    "require-sri": "off",
+    "tel-non-breaking": "error",
+    "text-content": "error",
+    "unrecognized-char-ref": "error",
+    
+    "element-required-attributes": "error",
+    "element-permitted-content": "error",
+    "element-permitted-occurrences": "error",
+    "element-permitted-order": "error",
+    "element-permitted-parent": "error",
+    
+    "attr-delimiter": "error",
+    "attr-quotes": ["error", { "style": "double" }],
+    "attr-spacing": "error",
+    "class-pattern": ["error", { "pattern": "kebab-case" }],
+    "id-pattern": ["error", { "pattern": "kebab-case" }],
+    
+    "no-trailing-whitespace": "error",
+    "no-multiple-empty-lines": ["error", { "max": 2 }]
+  },
+  "elements": [
+    "html5"
+  ],
+  "plugins": [
+    "html-validate:wcag"
+  ]
+}

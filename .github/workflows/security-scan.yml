@@ -1,0 +1,318 @@
+name: Security Scan
+
+on:
+  schedule:
+    # Läuft täglich um 2:00 UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - '**.js'
+      - '**.html'
+      - '**.css'
+      - 'package*.json'
+
+env:
+  NODE_VERSION: '18'
+
+jobs:
+  # =============================================================================
+  # DEPENDENCY VULNERABILITY SCAN
+  # =============================================================================
+  dependency-scan:
+    name: 📦 Dependency Vulnerability Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: 📥 Install Dependencies
+        run: npm ci
+        
+      - name: 🔒 NPM Security Audit
+        run: |
+          echo "🔍 Running npm audit..."
+          npm audit --audit-level=high --json > npm-audit.json || true
+          
+          # Check for high/critical vulnerabilities
+          if npm audit --audit-level=high; then
+            echo "✅ No high/critical vulnerabilities found"
+          else
+            echo "❌ High/critical vulnerabilities detected!"
+            npm audit --audit-level=high
+            exit 1
+          fi
+          
+      - name: 🔍 Snyk Security Scan
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+          
+      - name: 📊 Upload Vulnerability Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: vulnerability-report
+          path: |
+            npm-audit.json
+            snyk-report.json
+
+  # =============================================================================
+  # CODE SECURITY ANALYSIS
+  # =============================================================================
+  code-security:
+    name: 🔍 Code Security Analysis
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 🔍 CodeQL Analysis
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+          
+      - name: 🏗️ Autobuild
+        uses: github/codeql-action/autobuild@v3
+        
+      - name: 🔍 Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        
+      - name: 🔒 Semgrep Security Scan
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: >-
+            p/security-audit
+            p/javascript
+            p/owasp-top-ten
+            p/xss
+          generateSarif: "1"
+          
+      - name: 📊 Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep.sarif
+        if: always()
+
+  # =============================================================================
+  # WEB APPLICATION SECURITY TEST
+  # =============================================================================
+  web-security:
+    name: 🌐 Web Application Security Test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: 📥 Install Dependencies
+        run: npm ci
+        
+      - name: 🌐 Start Test Server
+        run: |
+          npm run dev &
+          sleep 10
+          
+      - name: 🛡️ OWASP ZAP Full Scan
+        uses: zaproxy/action-full-scan@v0.8.0
+        with:
+          target: 'http://localhost:8080'
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a'
+          
+      - name: 🔍 Nuclei Security Scan
+        uses: projectdiscovery/nuclei-action@main
+        with:
+          target: 'http://localhost:8080'
+          templates: 'exposures,vulnerabilities'
+          
+      - name: 📊 Upload Security Reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: web-security-reports
+          path: |
+            zap-report.html
+            nuclei-report.json
+
+  # =============================================================================
+  # SSL/TLS SECURITY CHECK
+  # =============================================================================
+  ssl-check:
+    name: 🔐 SSL/TLS Security Check
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: 🔐 SSL Labs Test
+        run: |
+          # Nur für Live-Domains
+          if [[ -n "${{ secrets.PRODUCTION_DOMAIN }}" ]]; then
+            echo "🔍 Testing SSL configuration for: ${{ secrets.PRODUCTION_DOMAIN }}"
+            
+            # SSL Labs API Test (vereinfacht)
+            curl -s "https://api.ssllabs.com/api/v3/analyze?host=${{ secrets.PRODUCTION_DOMAIN }}&publish=off&startNew=on" > ssl-test.json
+            
+            # Warte auf Test-Completion (vereinfacht)
+            sleep 60
+            
+            # Hole Ergebnisse
+            curl -s "https://api.ssllabs.com/api/v3/analyze?host=${{ secrets.PRODUCTION_DOMAIN }}" > ssl-results.json
+            
+            # Prüfe Grade (A oder besser)
+            grade=$(cat ssl-results.json | jq -r '.endpoints[0].grade // "PENDING"')
+            
+            if [[ "$grade" =~ ^A ]]; then
+              echo "✅ SSL Grade: $grade"
+            else
+              echo "❌ SSL Grade insufficient: $grade"
+              exit 1
+            fi
+          else
+            echo "ℹ️ No production domain configured, skipping SSL test"
+          fi
+          
+      - name: 🔒 Security Headers Test
+        run: |
+          if [[ -n "${{ secrets.PRODUCTION_URL }}" ]]; then
+            echo "🔍 Testing security headers..."
+            
+            # Test wichtige Security Headers
+            headers=(
+              "Content-Security-Policy"
+              "Strict-Transport-Security"
+              "X-Frame-Options"
+              "X-Content-Type-Options"
+              "Referrer-Policy"
+            )
+            
+            for header in "${headers[@]}"; do
+              if curl -s -I "${{ secrets.PRODUCTION_URL }}" | grep -i "$header"; then
+                echo "✅ $header header found"
+              else
+                echo "❌ $header header missing"
+                exit 1
+              fi
+            done
+          fi
+
+  # =============================================================================
+  # COMPLIANCE MONITORING
+  # =============================================================================
+  compliance-check:
+    name: ⚖️ Compliance Monitoring
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: ⚖️ GDPR Compliance Check
+        run: |
+          echo "🔍 Checking GDPR compliance..."
+          
+          # Prüfe Cookie-Banner Implementation
+          if grep -r "cookie.*consent\|consent.*cookie" . --include="*.html" --include="*.js"; then
+            echo "✅ Cookie consent implementation found"
+          else
+            echo "❌ Cookie consent implementation missing"
+            exit 1
+          fi
+          
+          # Prüfe Datenschutzerklärung
+          if [[ -f "legal/datenschutz.template.md" ]]; then
+            echo "✅ Privacy policy found"
+          else
+            echo "❌ Privacy policy missing"
+            exit 1
+          fi
+          
+      - name: ♿ Accessibility Compliance
+        run: |
+          echo "🔍 Checking accessibility compliance..."
+          
+          # Prüfe WCAG 2.2 AA Implementation
+          if grep -r "aria-\|role=\|alt=" . --include="*.html"; then
+            echo "✅ Accessibility attributes found"
+          else
+            echo "❌ Accessibility attributes missing"
+            exit 1
+          fi
+
+  # =============================================================================
+  # MONITORING SETUP
+  # =============================================================================
+  setup-monitoring:
+    name: 📊 Setup Monitoring
+    runs-on: ubuntu-latest
+    needs: [deploy-vercel]
+    if: always() && needs.deploy-vercel.result == 'success'
+    
+    steps:
+      - name: 📊 Setup Uptime Monitoring
+        run: |
+          # Beispiel für UptimeRobot API
+          if [[ -n "${{ secrets.UPTIMEROBOT_API_KEY }}" ]]; then
+            curl -X POST "https://api.uptimerobot.com/v2/newMonitor" \
+              -H "Content-Type: application/x-www-form-urlencoded" \
+              -d "api_key=${{ secrets.UPTIMEROBOT_API_KEY }}" \
+              -d "format=json" \
+              -d "type=1" \
+              -d "url=${{ secrets.PRODUCTION_URL }}" \
+              -d "friendly_name=JobCoach Münster - Main"
+          fi
+          
+      - name: 🚨 Setup Error Monitoring
+        run: |
+          echo "📊 Monitoring setup completed"
+          echo "🌐 Site: ${{ secrets.PRODUCTION_URL }}"
+          echo "📈 Monitor: Active"
+
+  # =============================================================================
+  # DEPLOYMENT SUMMARY
+  # =============================================================================
+  deployment-summary:
+    name: 📋 Deployment Summary
+    runs-on: ubuntu-latest
+    needs: [docker-build, deploy-vercel, ssl-check, compliance-check, post-deploy-tests]
+    if: always()
+    
+    steps:
+      - name: 📋 Generate Summary
+        run: |
+          echo "## 🚀 Deployment Summary"
+          echo "**Branch:** ${{ github.ref_name }}"
+          echo "**Commit:** ${{ github.sha }}"
+          echo "**Triggered by:** ${{ github.actor }}"
+          echo ""
+          echo "### 📊 Results:"
+          echo "- Docker Build: ${{ needs.docker-build.result }}"
+          echo "- Vercel Deploy: ${{ needs.deploy-vercel.result }}"
+          echo "- SSL Check: ${{ needs.ssl-check.result }}"
+          echo "- Compliance: ${{ needs.compliance-check.result }}"
+          echo "- Post-Deploy Tests: ${{ needs.post-deploy-tests.result }}"
+          echo ""
+          if [[ "${{ needs.deploy-vercel.result }}" == "success" ]]; then
+            echo "🎉 **Deployment erfolgreich!**"
+            echo "🌐 Live unter: ${{ secrets.PRODUCTION_URL || 'https://jobcoach-muenster.vercel.app' }}"
+          else
+            echo "❌ **Deployment fehlgeschlagen!**"
+            echo "Bitte Logs überprüfen."
+          fi

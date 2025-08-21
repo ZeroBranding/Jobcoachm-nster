@@ -1,0 +1,271 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+        - production
+        - staging
+
+env:
+  NODE_VERSION: '18'
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  # =============================================================================
+  # PRE-DEPLOYMENT CHECKS
+  # =============================================================================
+  pre-deploy-checks:
+    name: 🔍 Pre-Deployment Checks
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: 📥 Install Dependencies
+        run: npm ci
+        
+      - name: 🧪 Run Critical Tests
+        run: |
+          npm run test:e2e
+          npm run test:a11y
+          npm run test:security
+          
+      - name: ⚖️ Legal Compliance Check
+        run: |
+          if grep -r "\[FIRMA\]\|\[EMAIL\]\|\[ANSCHRIFT\]" legal/ --exclude="*.template.md"; then
+            echo "❌ Legal documents still contain placeholders!"
+            exit 1
+          fi
+          
+      - name: 🏗️ Test Build
+        run: npm run build
+
+  # =============================================================================
+  # DOCKER BUILD & PUSH
+  # =============================================================================
+  docker-build:
+    name: 🐳 Docker Build & Push
+    runs-on: ubuntu-latest
+    needs: pre-deploy-checks
+    permissions:
+      contents: read
+      packages: write
+      
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 🐳 Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        
+      - name: 🔐 Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: 🏷️ Extract Metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha,prefix={{branch}}-
+            
+      - name: 🏗️ Build and Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./docker/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # =============================================================================
+  # VERCEL DEPLOYMENT
+  # =============================================================================
+  deploy-vercel:
+    name: 🚀 Deploy to Vercel
+    runs-on: ubuntu-latest
+    needs: pre-deploy-checks
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: 📥 Install Dependencies
+        run: npm ci
+        
+      - name: 🏗️ Build for Production
+        run: npm run build
+        
+      - name: 🚀 Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+          working-directory: ./
+
+  # =============================================================================
+  # TRADITIONAL SERVER DEPLOYMENT
+  # =============================================================================
+  deploy-server:
+    name: 🖥️ Deploy to Server
+    runs-on: ubuntu-latest
+    needs: pre-deploy-checks
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: 📥 Install Dependencies
+        run: npm ci
+        
+      - name: 🏗️ Build for Production
+        run: npm run build
+        
+      - name: 🔐 Setup SSH
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          
+      - name: 🚀 Deploy to Server
+        run: |
+          # Server-Deployment (anpassen nach Bedarf)
+          rsync -avz --delete \
+            -e "ssh -o StrictHostKeyChecking=no" \
+            dist/ \
+            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_PATH }}
+            
+      - name: 🔄 Restart Services
+        run: |
+          ssh -o StrictHostKeyChecking=no \
+            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
+            "sudo systemctl reload nginx && sudo systemctl status nginx"
+
+  # =============================================================================
+  # POST-DEPLOYMENT TESTS
+  # =============================================================================
+  post-deploy-tests:
+    name: 🧪 Post-Deployment Tests
+    runs-on: ubuntu-latest
+    needs: [deploy-vercel]
+    if: always() && needs.deploy-vercel.result == 'success'
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: 📥 Install Dependencies
+        run: npm ci
+        
+      - name: 🎭 Install Playwright
+        run: npx playwright install --with-deps
+        
+      - name: 🌐 Test Production Site
+        run: |
+          # Warte auf Deployment-Propagation
+          sleep 30
+          
+          # Teste Live-Site
+          SITE_URL="${{ secrets.PRODUCTION_URL || 'https://jobcoach-muenster.vercel.app' }}"
+          npx playwright test --config=playwright.config.production.ts --grep="@production"
+          
+      - name: ⚡ Lighthouse Performance Audit
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          urls: |
+            ${{ secrets.PRODUCTION_URL || 'https://jobcoach-muenster.vercel.app' }}
+            ${{ secrets.PRODUCTION_URL || 'https://jobcoach-muenster.vercel.app' }}/leichte-sprache.html
+          configPath: './lighthouse.config.js'
+          uploadArtifacts: true
+          
+      - name: 🔒 Security Headers Check
+        run: |
+          SITE_URL="${{ secrets.PRODUCTION_URL || 'https://jobcoach-muenster.vercel.app' }}"
+          
+          echo "🔍 Checking security headers for: $SITE_URL"
+          
+          # Check CSP
+          if curl -s -I "$SITE_URL" | grep -i "content-security-policy"; then
+            echo "✅ CSP header found"
+          else
+            echo "❌ CSP header missing"
+            exit 1
+          fi
+          
+          # Check HSTS
+          if curl -s -I "$SITE_URL" | grep -i "strict-transport-security"; then
+            echo "✅ HSTS header found"
+          else
+            echo "❌ HSTS header missing"
+            exit 1
+          fi
+
+  # =============================================================================
+  # NOTIFICATION
+  # =============================================================================
+  notify:
+    name: 📢 Deployment Notification
+    runs-on: ubuntu-latest
+    needs: [docker-build, deploy-vercel, post-deploy-tests]
+    if: always()
+    
+    steps:
+      - name: 📢 Success Notification
+        if: needs.deploy-vercel.result == 'success' && needs.post-deploy-tests.result == 'success'
+        run: |
+          echo "🎉 Deployment erfolgreich!"
+          echo "🌐 Live unter: ${{ secrets.PRODUCTION_URL || 'https://jobcoach-muenster.vercel.app' }}"
+          
+      - name: ⚠️ Failure Notification
+        if: failure()
+        run: |
+          echo "❌ Deployment fehlgeschlagen!"
+          echo "Bitte Logs überprüfen und Probleme beheben."

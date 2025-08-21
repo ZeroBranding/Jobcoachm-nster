@@ -1,15 +1,102 @@
 {
   "name": "jobcoach-muenster",
   "version": "1.0.0",
+  "description": "Moderne, barrierefreie und DSGVO-konforme Website für Beratung bei Sozialleistungen",
   "private": true,
+  "keywords": [
+    "jobcoach",
+    "sozialleistungen",
+    "bürgergeld",
+    "wohngeld",
+    "kindergeld",
+    "beratung",
+    "münster",
+    "accessibility",
+    "gdpr"
+  ],
+  "author": "JobCoach Münster <info@jobcoach-muenster.de>",
+  "license": "MIT",
+  "homepage": "https://jobcoach-muenster.de",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/[USERNAME]/jobcoach-muenster.git"
+  },
+  "bugs": {
+    "url": "https://github.com/[USERNAME]/jobcoach-muenster/issues"
+  },
   "scripts": {
-    "dev": "http-server -c-1 .",
-    "test:e2e": "playwright test"
+    "dev": "http-server -c-1 . -p 8080",
+    "start": "npm run dev",
+    "build": "npm run build:prepare && npm run build:optimize",
+    "build:prepare": "mkdir -p dist && cp -r . dist/ && cd dist && rm -rf node_modules .git docker .github tests",
+    "build:optimize": "npm run minify:css && npm run minify:js && npm run optimize:images",
+    "preview": "http-server dist -p 8080",
+    "test": "npm run test:lint && npm run test:e2e && npm run test:a11y && npm run test:perf && npm run test:security",
+    "test:e2e": "playwright test tests/e2e.spec.ts",
+    "test:a11y": "playwright test tests/accessibility.spec.ts",
+    "test:perf": "playwright test tests/performance.spec.ts",
+    "test:security": "playwright test tests/security.spec.ts",
+    "test:coverage": "npm test && npm run coverage:report",
+    "test:watch": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "lint": "npm run lint:html && npm run lint:css && npm run lint:js",
+    "lint:html": "html-validate *.html",
+    "lint:css": "stylelint assets/*.css",
+    "lint:js": "eslint assets/*.js",
+    "lint:fix": "eslint assets/*.js --fix && stylelint assets/*.css --fix",
+    "security:audit": "npm audit --audit-level=high",
+    "security:scan": "npm run security:audit && npm run test:security",
+    "minify:css": "cleancss -o dist/assets/app.min.css assets/app.css",
+    "minify:js": "terser assets/app.js -o dist/assets/app.min.js && terser assets/3d.js -o dist/assets/3d.min.js",
+    "optimize:images": "imagemin assets/images/* --out-dir=dist/assets/images --plugin=imagemin-webp --plugin=imagemin-mozjpeg --plugin=imagemin-pngquant",
+    "docker:build": "docker build -f docker/Dockerfile -t jobcoach-muenster .",
+    "docker:run": "docker run -p 80:80 jobcoach-muenster",
+    "docker:dev": "docker-compose --profile development up dev",
+    "docker:prod": "docker-compose up -d web",
+    "docker:test": "docker-compose --profile testing run --rm test",
+    "deploy:vercel": "vercel --prod",
+    "deploy:docker": "npm run docker:build && npm run docker:run",
+    "legal:check": "node scripts/check-legal-templates.js",
+    "legal:update": "node scripts/update-legal-templates.js",
+    "setup": "npm install && npm run legal:check",
+    "clean": "rm -rf dist node_modules/.cache test-results",
+    "validate": "npm run lint && npm run test && npm run security:scan"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.1",
     "@playwright/test": "^1.46.0",
-    "http-server": "^14.1.1"
+    "@types/node": "^20.10.0",
+    "clean-css-cli": "^5.6.3",
+    "eslint": "^8.56.0",
+    "html-validate": "^8.7.4",
+    "http-server": "^14.1.1",
+    "imagemin": "^8.0.1",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^9.0.2",
+    "imagemin-webp": "^7.0.0",
+    "lighthouse": "^11.4.0",
+    "stylelint": "^16.1.0",
+    "stylelint-config-standard": "^36.0.0",
+    "terser": "^5.26.0",
+    "typescript": "^5.3.3"
+  },
+  "optionalDependencies": {
+    "sharp": "^0.33.1",
+    "puppeteer": "^21.6.1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
+  "config": {
+    "port": 8080,
+    "host": "localhost"
   }
 }
 

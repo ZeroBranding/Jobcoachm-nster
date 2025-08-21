@@ -11,15 +11,27 @@
 **Telefon:** [TELEFON]  
 **E-Mail:** [EMAIL]  
 
-## Umsatzsteuer-ID
+## Registereintrag
+**Handelsregister:** [HANDELSREGISTER]  
+**Registergericht:** [REGISTERGERICHT]  
+**Registernummer:** [REGISTERNUMMER]
 
+## Umsatzsteuer-ID
 Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:  
 **[UST-ID]** (falls vorhanden)
 
-## Berufsbezeichnung und berufsrechtliche Regelungen
+## Aufsichtsbehörde
+**Zuständige Aufsichtsbehörde:** [AUFSICHTSBEHOERDE]  
+**Anschrift:** [AUFSICHT-ANSCHRIFT]  
+**Website:** [AUFSICHT-WEBSITE]
 
-**Berufsbezeichnung:** [BERUFSBEZEICHNUNG]  
+## Berufsbezeichnung und berufsrechtliche Regelungen
+**Berufsbezeichnung:** Sozialberatung / Antragshilfe  
 **Verliehen in:** Deutschland  
+**Berufsrechtliche Regelungen:** 
+- Rechtsdienstleistungsgesetz (RDG)
+- Sozialgesetzbuch (SGB)
+- Bundesdatenschutzgesetz (BDSG)  
 
 ## Redaktionell verantwortlich
 

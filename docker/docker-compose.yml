@@ -1,0 +1,210 @@
+# JobCoach Münster - Docker Compose Konfiguration
+# Für lokale Entwicklung und Production-Deployment
+
+version: '3.8'
+
+services:
+  # =============================================================================
+  # WEB APPLICATION
+  # =============================================================================
+  web:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: production
+    container_name: jobcoach-web
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - NODE_ENV=production
+      - TZ=Europe/Berlin
+    volumes:
+      # SSL-Zertifikate (falls vorhanden)
+      - ./ssl:/etc/nginx/ssl:ro
+      # Logs persistieren
+      - ./logs:/var/log/nginx
+      # Custom Nginx-Config (optional)
+      - ./nginx-custom.conf:/etc/nginx/conf.d/custom.conf:ro
+    networks:
+      - jobcoach-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.jobcoach.rule=Host(`jobcoach-muenster.de`)"
+      - "traefik.http.routers.jobcoach.tls=true"
+      - "traefik.http.routers.jobcoach.tls.certresolver=letsencrypt"
+
+  # =============================================================================
+  # REVERSE PROXY (optional - für SSL Termination)
+  # =============================================================================
+  traefik:
+    image: traefik:v3.0
+    container_name: jobcoach-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080" # Traefik Dashboard
+    environment:
+      - TRAEFIK_API_DASHBOARD=true
+      - TRAEFIK_CERTIFICATESRESOLVERS_LETSENCRYPT_ACME_EMAIL=admin@jobcoach-muenster.de
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./acme:/acme
+    networks:
+      - jobcoach-network
+    profiles:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.jobcoach-muenster.de`)"
+      - "traefik.http.routers.dashboard.tls=true"
+
+  # =============================================================================
+  # MONITORING & LOGGING
+  # =============================================================================
+  monitoring:
+    image: prom/prometheus:latest
+    container_name: jobcoach-monitoring
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    networks:
+      - jobcoach-network
+    profiles:
+      - monitoring
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: jobcoach-grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      - jobcoach-network
+    profiles:
+      - monitoring
+
+  # =============================================================================
+  # BACKUP SERVICE
+  # =============================================================================
+  backup:
+    image: alpine:latest
+    container_name: jobcoach-backup
+    restart: "no"
+    volumes:
+      - ../:/app:ro
+      - ./backups:/backups
+    networks:
+      - jobcoach-network
+    profiles:
+      - backup
+    command: >
+      sh -c "
+        apk add --no-cache tar gzip &&
+        cd /app &&
+        tar -czf /backups/backup-$(date +%Y%m%d-%H%M%S).tar.gz \
+          --exclude=node_modules \
+          --exclude=.git \
+          --exclude=dist \
+          --exclude=docker/backups \
+          . &&
+        echo 'Backup completed: /backups/backup-$(date +%Y%m%d-%H%M%S).tar.gz'
+      "
+
+# =============================================================================
+# DEVELOPMENT SERVICES
+# =============================================================================
+  dev:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: development
+    container_name: jobcoach-dev
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    networks:
+      - jobcoach-network
+    profiles:
+      - development
+
+  # Test-Runner für CI/CD
+  test:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: testing
+    container_name: jobcoach-test
+    volumes:
+      - ../:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=test
+      - CI=true
+    networks:
+      - jobcoach-network
+    profiles:
+      - testing
+
+# =============================================================================
+# NETWORKS & VOLUMES
+# =============================================================================
+networks:
+  jobcoach-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
+
+# =============================================================================
+# VERWENDUNG
+# =============================================================================
+
+# Production:
+# docker-compose up -d web
+
+# Mit Reverse Proxy:
+# docker-compose --profile proxy up -d
+
+# Mit Monitoring:
+# docker-compose --profile monitoring up -d
+
+# Development:
+# docker-compose --profile development up dev
+
+# Testing:
+# docker-compose --profile testing run --rm test
+
+# Backup erstellen:
+# docker-compose --profile backup run --rm backup
