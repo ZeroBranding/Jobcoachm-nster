@@ -1,0 +1,22 @@
+{
+  "name": "jobcoach-muenster",
+  "version": "1.0.0",
+  "description": "Accessible, secure and legally compliant SPA/MPA for German social benefits assistance",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "playwright test",
+    "lint": "echo \"todo: add lint\""
+  },
+  "dependencies": {
+    "three": "^0.160.0",
+    "@motionone/dom": "^10.18.0",
+    "gsap": "^3.12.2"
+  },
+  "devDependencies": {
+    "vite": "^5.2.0",
+    "@playwright/test": "^1.41.2",
+    "axe-core": "^4.8.0"
+  }
+}
