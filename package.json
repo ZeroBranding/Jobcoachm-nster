@@ -12,7 +12,8 @@
   "dependencies": {
     "three": "^0.160.0",
     "@motionone/dom": "^10.18.0",
-    "gsap": "^3.12.2"
+    "gsap": "^3.12.2",
+    "socket.io-client": "^4.7.2"
   },
   "devDependencies": {
     "vite": "^5.2.0",

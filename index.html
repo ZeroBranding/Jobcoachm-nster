@@ -58,6 +58,20 @@
       <a href="/legal/widerruf.html">Widerruf</a>
     </nav>
   </footer>
+  <div id="chat-widget" class="chat-widget" aria-labelledby="chat-title" hidden>
+    <header class="chat-header">
+      <h2 id="chat-title">Chat</h2>
+      <button id="chat-close" class="close-btn" aria-label="Chat schließen">&times;</button>
+    </header>
+    <div id="chat-messages" class="messages" role="log" aria-live="polite"></div>
+    <form id="chat-form">
+      <label class="sr-only" for="chat-input">Nachricht</label>
+      <input id="chat-input" name="message" autocomplete="off" required />
+      <button type="submit">Senden</button>
+    </form>
+  </div>
+  <button id="chat-toggle" class="chat-toggle" aria-controls="chat-widget" aria-expanded="false">Chat</button>
   <script type="module" src="/assets/app.js" defer></script>
+  <script type="module" src="/assets/chat.js" defer></script>
 </body>
 </html>
