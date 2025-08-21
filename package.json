@@ -28,7 +28,7 @@
     "dev": "http-server -c-1 . -p 8080",
     "start": "npm run dev",
     "build": "npm run build:prepare && npm run build:optimize",
-    "build:prepare": "mkdir -p dist && cp -r . dist/ && cd dist && rm -rf node_modules .git docker .github tests",
+    "build:prepare": "mkdir -p dist && cp *.html *.txt *.xml assets legal dist/ 2>/dev/null || true",
     "build:optimize": "npm run minify:css && npm run minify:js && npm run optimize:images",
     "preview": "http-server dist -p 8080",
     "test": "npm run test:lint && npm run test:e2e && npm run test:a11y && npm run test:perf && npm run test:security",
@@ -39,11 +39,13 @@
     "test:coverage": "npm test && npm run coverage:report",
     "test:watch": "playwright test --ui",
     "test:debug": "playwright test --debug",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "lint": "npm run lint:html && npm run lint:css && npm run lint:js",
     "lint:html": "html-validate *.html",
     "lint:css": "stylelint assets/*.css",
-    "lint:js": "eslint assets/*.js",
-    "lint:fix": "eslint assets/*.js --fix && stylelint assets/*.css --fix",
+    "lint:js": "eslint assets/*.js scripts/*.js",
+    "lint:fix": "npm run format && eslint assets/*.js scripts/*.js --fix && stylelint assets/*.css --fix",
     "security:audit": "npm audit --audit-level=high",
     "security:scan": "npm run security:audit && npm run test:security",
     "minify:css": "cleancss -o dist/assets/app.min.css assets/app.css",
@@ -68,14 +70,21 @@
     "@types/node": "^20.10.0",
     "clean-css-cli": "^5.6.3",
     "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.0",
+    "eslint-plugin-security": "^2.1.0",
     "html-validate": "^8.7.4",
     "http-server": "^14.1.1",
+    "husky": "^8.0.3",
     "imagemin": "^8.0.1",
     "imagemin-mozjpeg": "^10.0.0",
     "imagemin-pngquant": "^9.0.2",
     "imagemin-webp": "^7.0.0",
     "lighthouse": "^11.4.0",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.1",
     "stylelint": "^16.1.0",
+    "stylelint-a11y": "^1.2.3",
     "stylelint-config-standard": "^36.0.0",
     "terser": "^5.26.0",
     "typescript": "^5.3.3"
@@ -97,6 +106,18 @@
   "config": {
     "port": 8080,
     "host": "localhost"
+  },
+  "lint-staged": {
+    "*.{js,ts}": ["eslint --fix", "prettier --write"],
+    "*.{css,scss}": ["stylelint --fix", "prettier --write"],
+    "*.{html,htm}": ["html-validate", "prettier --write"],
+    "*.{json,md,yml,yaml}": ["prettier --write"]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test:e2e"
+    }
   }
 }
 

@@ -2,25 +2,34 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    node: true
+    node: true,
   },
-  extends: [
-    'eslint:recommended'
-  ],
-  plugins: [
-    'security'
-  ],
+  extends: ['eslint:recommended', 'prettier'],
+  plugins: ['security', 'prettier'],
   parserOptions: {
     ecmaVersion: 'latest',
-    sourceType: 'module'
+    sourceType: 'module',
   },
   rules: {
+    // Prettier Integration
+    'prettier/prettier': 'error',
+
     // Code Quality
     'no-console': 'warn',
-    'no-unused-vars': 'error',
+    'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'prefer-const': 'error',
     'no-var': 'error',
-    
+    'eqeqeq': ['error', 'always'],
+    'curly': ['error', 'all'],
+    'no-eval': 'error',
+    'no-implied-eval': 'error',
+
+    // Modern JavaScript
+    'prefer-arrow-callback': 'error',
+    'prefer-template': 'error',
+    'object-shorthand': 'error',
+    'prefer-destructuring': ['error', { object: true, array: false }],
+
     // Security
     'security/detect-object-injection': 'error',
     'security/detect-non-literal-regexp': 'warn',
@@ -34,21 +43,33 @@ module.exports = {
     'security/detect-non-literal-require': 'warn',
     'security/detect-possible-timing-attacks': 'warn',
     'security/detect-pseudoRandomBytes': 'error',
-    
-    // Accessibility
+
+    // Best Practices
     'no-invalid-this': 'error',
-    'consistent-return': 'error'
+    'consistent-return': 'error',
+    'default-case': 'error',
+    'no-fallthrough': 'error',
+    'no-multi-spaces': 'error',
+    'no-multiple-empty-lines': ['error', { max: 2 }],
+    'no-trailing-spaces': 'error',
   },
   overrides: [
     {
       files: ['tests/**/*.js', 'tests/**/*.ts'],
       env: {
         jest: true,
-        'jest/globals': true
       },
       rules: {
-        'no-console': 'off'
-      }
-    }
-  ]
+        'no-console': 'off',
+        'security/detect-non-literal-fs-filename': 'off',
+      },
+    },
+    {
+      files: ['scripts/**/*.js'],
+      rules: {
+        'no-console': 'off',
+        'security/detect-child-process': 'off',
+      },
+    },
+  ],
 };
