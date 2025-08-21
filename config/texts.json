@@ -1,0 +1,92 @@
+{
+  "site": {
+    "title": "Jobcoach Münster - Professionelle Hilfe bei Sozialleistungen",
+    "description": "Professionelle Hilfe bei Bürgergeld, Wohngeld, Kindergeld und anderen Sozialleistungen. Kostenlose Erstberatung.",
+    "keywords": "Bürgergeld, Wohngeld, Kindergeld, Sozialleistungen, Beratung, Münster"
+  },
+  "services": {
+    "buergergeld": {
+      "title": "Bürgergeld",
+      "description": "Unterstützung bei Antragstellung, Widersprüchen und Beratung zu Ihren Rechten und Pflichten.",
+      "features": ["Antragsberatung", "Unterlagenvorbereitung", "Widerspruchsverfahren"]
+    },
+    "wohngeld": {
+      "title": "Wohngeld", 
+      "description": "Prüfung Ihres Anspruchs und Hilfe bei der Beantragung von Wohngeld zur Senkung Ihrer Wohnkosten.",
+      "features": ["Anspruchsprüfung", "Berechnung", "Antragstellung"]
+    },
+    "kindergeld": {
+      "title": "Kindergeld",
+      "description": "Beantragung und Beratung rund um Kindergeld, Kinderzuschlag und weitere Familienleistungen.",
+      "features": ["Kindergeld-Antrag", "Kinderzuschlag", "Elterngeld-Beratung"]
+    }
+  },
+  "easy_language": {
+    "site_title": "Leichte Sprache - Jobcoach Münster",
+    "what_we_do": "Wir helfen bei Anträgen für Geld vom Amt.",
+    "services": ["Bürgergeld", "Wohngeld", "Kindergeld"],
+    "how_we_help": [
+      "Wir schauen: Bekommen Sie Geld?",
+      "Wir füllen Formulare aus.",
+      "Wir schreiben Briefe.",
+      "Wir erklären alles."
+    ],
+    "cost": "Das erste Gespräch kostet nichts. Es dauert 30 Minuten.",
+    "contact": {
+      "phone": "+49 251 XXX-XXXX",
+      "email": "info@jobcoachmuenster.de"
+    },
+    "privacy": "Wir passen auf Ihre Daten auf. Wir löschen sie nach 90 Tagen.",
+    "important": "Wir sind keine Anwälte. Wir geben nur Tipps. Das Amt entscheidet."
+  },
+  "legal": {
+    "privacy_title": "Datenschutzerklärung",
+    "terms_title": "Allgemeine Geschäftsbedingungen",
+    "imprint_title": "Impressum",
+    "withdrawal_title": "Widerrufsbelehrung"
+  },
+  "forms": {
+    "required_field": "Pflichtfeld",
+    "submit": "Absenden",
+    "loading": "Wird geladen...",
+    "success": "Erfolgreich gesendet!",
+    "error": "Ein Fehler ist aufgetreten.",
+    "validation": {
+      "required": "Dieses Feld ist erforderlich.",
+      "email": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+      "phone": "Bitte geben Sie eine gültige Telefonnummer ein.",
+      "min_length": "Mindestens {min} Zeichen erforderlich.",
+      "file_size": "Datei zu groß. Maximum: 10MB",
+      "file_type": "Nur PDF, JPEG und PNG Dateien sind erlaubt."
+    }
+  },
+  "consent": {
+    "cookie_banner": {
+      "title": "Cookie-Einstellungen",
+      "description": "Wir verwenden Cookies, um Ihnen die bestmögliche Nutzererfahrung zu bieten.",
+      "essential": "Essenziell (immer aktiv)",
+      "analytics": "Analyse & Statistiken", 
+      "marketing": "Marketing",
+      "accept_all": "Alle akzeptieren",
+      "accept_selected": "Auswahl akzeptieren",
+      "reject_optional": "Nur essenziell"
+    },
+    "microphone": {
+      "title": "Mikrofon-Nutzung",
+      "description": "Wir möchten Ihr Mikrofon nutzen, um Sprachaufnahmen für die Texterkennung zu verarbeiten.",
+      "legal_basis": "Art. 6 Abs. 1 lit. a DSGVO (Einwilligung)",
+      "withdrawal": "Sie können diese Einwilligung jederzeit widerrufen."
+    },
+    "upload": {
+      "title": "Datei-Upload",
+      "description": "Wir möchten Ihre hochgeladenen Dokumente zur Antragsvorbereitung speichern und verarbeiten.",
+      "retention": "90 Tage nach Abschluss"
+    },
+    "whatsapp": {
+      "title": "WhatsApp-Kontakt", 
+      "description": "Wir möchten Sie über WhatsApp kontaktieren. Dabei werden Ihre Daten an WhatsApp (Meta) übermittelt.",
+      "recipient": "Meta Platforms (USA)",
+      "warning": "Bitte verwenden Sie nur nicht-sensible Informationen."
+    }
+  }
+}

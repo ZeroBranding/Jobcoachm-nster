@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="de-simple">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leichte Sprache - Jobcoach Münster</title>
+    <meta name="description" content="Hilfe bei Geld vom Amt. Wir helfen bei Anträgen. Einfach erklärt.">
+    <link rel="stylesheet" href="/assets/app.css">
+    <style>
+        .easy-language {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        .easy-language h1 { font-size: 2rem; color: #2563eb; }
+        .easy-language h2 { 
+            font-size: 1.5rem; 
+            color: #1d4ed8; 
+            border-bottom: 3px solid #2563eb; 
+            padding-bottom: 0.5rem; 
+        }
+        .easy-language p { margin-bottom: 1.5rem; }
+        .easy-language ul { list-style: none; padding: 0; }
+        .easy-language li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+        .easy-language li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #059669;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .easy-button {
+            background: #2563eb;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 1rem 0.5rem 1rem 0;
+        }
+        .easy-button:hover {
+            background: #1d4ed8;
+            color: white;
+        }
+        .warning-box {
+            background: #fef3c7;
+            border: 3px solid #f59e0b;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin: 2rem 0;
+        }
+        .warning-box h3 {
+            color: #92400e;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="container">
+                <div class="nav-brand">
+                    <a href="/">Jobcoach Münster</a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="/">Normal Sprache</a></li>
+                    <li><a href="#kontakt">Kontakt</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="easy-language">
+        <div class="container">
+            <h1>Leichte Sprache</h1>
+            <p>Wir helfen Ihnen bei Geld vom Amt.</p>
+
+            <h2>Was machen wir?</h2>
+            <p>Wir helfen bei Anträgen.</p>
+            <p>Zum Beispiel:</p>
+            <ul>
+                <li>Bürgergeld</li>
+                <li>Wohngeld</li>
+                <li>Kindergeld</li>
+            </ul>
+
+            <h2>Wie helfen wir?</h2>
+            <ul>
+                <li>Wir schauen: Bekommen Sie Geld?</li>
+                <li>Wir füllen Formulare aus.</li>
+                <li>Wir schreiben Briefe.</li>
+                <li>Wir erklären alles.</li>
+            </ul>
+
+            <div class="warning-box">
+                <h3>Wichtig!</h3>
+                <p>Wir sind keine Anwälte.</p>
+                <p>Wir geben nur Tipps.</p>
+                <p>Das Amt entscheidet.</p>
+            </div>
+
+            <h2>Was kostet das?</h2>
+            <p>Das erste Gespräch kostet nichts.</p>
+            <p>Es dauert 30 Minuten.</p>
+            <p>Danach sagen wir Ihnen die Kosten.</p>
+
+            <h2 id="kontakt">Kontakt</h2>
+            <p>Sie können uns anrufen:</p>
+            <p><strong>Telefon:</strong> +49 251 XXX-XXXX</p>
+            
+            <p>Sie können uns schreiben:</p>
+            <p><strong>E-Mail:</strong> info@jobcoachmuenster.de</p>
+
+            <a href="tel:+49251XXXXXXX" class="easy-button">Jetzt anrufen</a>
+            <a href="mailto:info@jobcoachmuenster.de" class="easy-button">E-Mail schreiben</a>
+
+            <h2>Datenschutz</h2>
+            <p>Wir passen auf Ihre Daten auf.</p>
+            <p>Wir löschen sie nach 90 Tagen.</p>
+            <p>Sie können sagen: Löscht meine Daten sofort.</p>
+
+            <h2>Barrierefreiheit</h2>
+            <p>Unsere Internet-Seite soll für alle sein.</p>
+            <p>Haben Sie Probleme mit der Seite?</p>
+            <p>Dann schreiben Sie uns.</p>
+
+            <div class="warning-box">
+                <h3>Haben Sie Fragen?</h3>
+                <p>Rufen Sie uns an.</p>
+                <p>Oder schreiben Sie uns.</p>
+                <p>Wir helfen gerne.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Jobcoach Münster</h3>
+                    <p>Hilfe bei Geld vom Amt</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Wichtige Seiten</h4>
+                    <ul class="footer-links">
+                        <li><a href="/legal/impressum.html">Impressum</a></li>
+                        <li><a href="/legal/datenschutz.html">Datenschutz</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Jobcoach Münster</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/app.js" defer></script>
+</body>
+</html>

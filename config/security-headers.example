@@ -1,0 +1,24 @@
+# Security Headers Configuration
+
+# Content Security Policy
+Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-RANDOM_NONCE' 'strict-dynamic'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none';
+
+# Permissions Policy  
+Permissions-Policy: microphone=(self), camera=(), geolocation=(), payment=(), usb=(), magnetometer=(), accelerometer=(), gyroscope=(), fullscreen=(self)
+
+# Other Security Headers
+Referrer-Policy: strict-origin-when-cross-origin
+Cross-Origin-Opener-Policy: same-origin
+Cross-Origin-Embedder-Policy: require-corp
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+
+# Apache .htaccess Example:
+# Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'nonce-RANDOM_NONCE' 'strict-dynamic'..."
+# Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+
+# Nginx Example:
+# add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'nonce-$request_id' 'strict-dynamic'..." always;
+# add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
